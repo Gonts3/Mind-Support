@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/client"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClientLoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="368dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/client"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/medical_service_icon"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clientSignInScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
+        android:layout_marginBottom="-20dp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to the client _______"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter your username or email"
+                />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter your password"
+                />
+            <Button
+                android:id="@+id/clientLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="saveDetails"
+                android:text="Login" />
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="29dp"
+                android:text="Not yet a user?, sign up below." />
+
+            <Button
+                android:id="@+id/clientSignUp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="SignUpCard"
+                android:text="Sign Up" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- card for user sign up-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clientSignUpScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-20dp"
+        android:elevation="10dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="28dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="378dp"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This is the Sign Up Card!" />
+
+            <EditText
+                android:id="@+id/newClientUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter a prefered username " />
+
+            <EditText
+                android:id="@+id/newClientEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter your email" />
+
+            <EditText
+                android:id="@+id/newClientPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter your password" />
+
+            <Button
+                android:id="@+id/clientSignUp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="optCard"
+                android:text="Sign Up" />
+
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="backToMain"
+                android:text="Back" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- card for user sign up opt Verification-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CotpCard"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-20dp"
+        android:elevation="10dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="28dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="378dp"
+        android:orientation="vertical"
+        android:padding="28dp">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="We send an OPT to your email, please verify it."
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtOtp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/txtOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter OTP"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/verifyOtp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <Button
+            android:id="@+id/sendOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="doSend"
+            android:text="Send OTP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verifyOtp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOtp"
+            app:layout_constraintVertical_bias="0.185" />
+
+        <Button
+            android:id="@+id/verifyOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="doVerify"
+            android:text="Verify"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sendOtp"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintVertical_bias="0.468" />
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
