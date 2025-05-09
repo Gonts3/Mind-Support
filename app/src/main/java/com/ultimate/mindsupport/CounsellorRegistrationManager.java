@@ -12,7 +12,7 @@ import okhttp3.Response;
 
 public class CounsellorRegistrationManager {
     private static final String REGISTER_URL = "https://lamp.ms.wits.ac.za/home/s2841286/counsellor_register.php";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface RegistrationCallback {
         void onSuccess(String message);
