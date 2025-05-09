@@ -91,7 +91,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:cardCornerRadius="28dp">
 
 
@@ -128,7 +128,7 @@
                 android:id="@+id/clientSignUp2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="optCard"
+                android:onClick="otpCard"
                 android:text="Sign Up" />
 
 
@@ -174,7 +174,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txtOtp"
+            android:id="@+id/newOtp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -202,6 +202,7 @@
             android:id="@+id/verifyOtp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:onClick="doVerify"
             android:text="Verify"
             app:layout_constraintBottom_toBottomOf="parent"
