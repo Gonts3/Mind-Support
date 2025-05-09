@@ -63,7 +63,7 @@
                 android:id="@+id/clientLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="saveDetails"
+                android:onClick="doClientLogin"
                 android:text="Login" />
 
             <TextView
@@ -91,7 +91,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:cardCornerRadius="28dp">
 
 

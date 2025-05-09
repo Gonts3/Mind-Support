@@ -16,7 +16,7 @@ import okhttp3.Response;
 
 public class EmailVerification {
     private static final String VERIFICATION_URL = "https://lamp.ms.wits.ac.za/home/s2841286/email_verification.php";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface VerificationCallback {
         void onSuccess(String message);
@@ -101,19 +101,19 @@ public class EmailVerification {
         });
     }
 
-    public static void VerifyOtp(String token, String otp) {
-        VerifyOtp(otp, token, new VerificationCallback() {
-
-            @Override
-            public void onSuccess(String message) {
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
+//    public static void VerifyOtp(String token, String otp) {
+//        VerifyOtp(otp, token, new VerificationCallback() {
+//
+//            @Override
+//            public void onSuccess(String message) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String error) {
+//
+//            }
+//        });
+//    }
 
     }

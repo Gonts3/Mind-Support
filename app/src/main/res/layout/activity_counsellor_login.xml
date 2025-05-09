@@ -5,7 +5,7 @@
     android:id="@+id/councillor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientLoginActivity">
+    tools:context=".CounsellorLoginActivity">
 
 
     <ImageView
@@ -24,7 +24,7 @@
         android:src="@drawable/medical_service_icon"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/councillorSignInScreen"
+        android:id="@+id/councillorSignInCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -47,13 +47,13 @@
                 android:fontFamily="sans-serif"/>
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/username2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Please enter your username"
                 />
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Please enter your password"
@@ -62,7 +62,7 @@
                 android:id="@+id/councillorLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="saveDetails"
+                android:onClick="doCounselorLogin"
                 android:text="Login" />
 
             <TextView
@@ -129,13 +129,13 @@
                 android:hint="Please enter your email" />
 
             <EditText
-                android:id="@+id/newClientPassword"
+                android:id="@+id/newCounsPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Please enter your password" />
 
             <Button
-                android:id="@+id/clientSignUp2"
+                android:id="@+id/counselorSignUp2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="otpCard2"

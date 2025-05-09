@@ -12,7 +12,7 @@ import okhttp3.Response;
 
 public class LoginManager {
     private static final String LOGIN_URL = "https://lamp.ms.wits.ac.za/home/s2841286/login.php";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface LoginCallback {
         void onSuccess(String message);

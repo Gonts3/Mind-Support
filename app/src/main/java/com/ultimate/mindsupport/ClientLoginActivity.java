@@ -1,6 +1,7 @@
 package com.ultimate.mindsupport;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,16 +13,27 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class ClientLoginActivity extends AppCompatActivity {
 
     CardView signUp,otpCard,signIn;
-    EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp;
+    EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp,textUser,textEmail,textPassword;
     String token;
 
 
@@ -47,6 +59,9 @@ public class ClientLoginActivity extends AppCompatActivity {
         txtClientEmail = findViewById(R.id.newClientEmail);
         txtClientUsername = findViewById(R.id.newClientUsername);
         txtClientPassword = findViewById(R.id.newClientPassword);
+        //textUser = findViewById(R.id.username);
+        textEmail = findViewById(R.id.username);
+        textPassword = findViewById(R.id.password);
         txtOtp = findViewById(R.id.newOtp);
     }
 
@@ -63,28 +78,25 @@ public class ClientLoginActivity extends AppCompatActivity {
         signUp.setVisibility(View.GONE);//CHANGED TO GONE
     }
 
-    public void saveDetails(View v /*,boolean saveLogin*/){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to have your login details  ?");
-        builder.setCancelable(false);
+    public void doClientLogin(View v){
+        //String username = txtClientUsername.getText().toString();
+        String password = textPassword.getText().toString();
+        String email = textEmail.getText().toString();
 
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            // When the user click yes button then app will take to anada sscreen
-            Intent intent = new Intent(this, ClientScreen.class);
-            startActivity(intent);
+        LoginManager.LoginUser(email, password, "client", new LoginManager.LoginCallback() {
+            @Override
+            public void onSuccess(String message) {
+                Intent intent = new Intent(ClientLoginActivity.this, CouncillorScreen.class);
+                startActivity(intent);
+            }
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(() ->
+                        Toast.makeText(ClientLoginActivity.this,error, Toast.LENGTH_LONG).show()
+                );
+            }
         });
-        // Set the Negative button with No name Lambda
-        // OnClickListener method is use of DialogInterface interface.
-        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            // If user click no then dialog box is canceled.
-            dialog.cancel();
-            Intent intent = new Intent(this, ClientScreen.class);
-            startActivity(intent);
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
     }
-
     public void otpCard(View v){
         String username = txtClientUsername.getText().toString();
         String email = txtClientEmail.getText().toString();
@@ -120,10 +132,6 @@ public class ClientLoginActivity extends AppCompatActivity {
         });
 
     }
-
-
-
-
     public void doSend(View v){
         String email = txtClientEmail.getText().toString();
 
@@ -139,7 +147,12 @@ public class ClientLoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void clearCounsellorInputFields() {
+        txtClientEmail.setText("");
+        txtClientUsername.setText("");
+        txtClientPassword.setText("");
+        txtOtp.setText("");
+    }
     public void doVerify(View v){
         String otp = txtOtp.getText().toString();
 
@@ -154,10 +167,7 @@ public class ClientLoginActivity extends AppCompatActivity {
                     signUp.setVisibility(View.GONE);
 
                     // Clear all input fields
-                    txtClientEmail.setText("");
-                    txtClientUsername.setText("");
-                    txtClientPassword.setText("");
-                    txtOtp.setText("");
+                    clearCounsellorInputFields();
                 }
             });
             }

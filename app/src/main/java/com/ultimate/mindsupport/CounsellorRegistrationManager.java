@@ -1,5 +1,8 @@
 package com.ultimate.mindsupport;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -12,7 +15,7 @@ import okhttp3.Response;
 
 public class CounsellorRegistrationManager {
     private static final String REGISTER_URL = "https://lamp.ms.wits.ac.za/home/s2841286/counsellor_register.php";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface RegistrationCallback {
         void onSuccess(String message);
@@ -42,12 +45,19 @@ public class CounsellorRegistrationManager {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String message = "";
                 if (response.isSuccessful() && response.body() != null) {
                     String json = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     if (json.contains("success")) {
-                        callback.onSuccess("Registration successful!");
+                        callback.onSuccess(message);
                     } else {
-                        callback.onFailure(json); // or parse JSON for error message
+                        callback.onFailure(message); // or parse JSON for error message
                     }
                 } else {
                     callback.onFailure("Server error");
