@@ -5,7 +5,7 @@
     android:id="@+id/client"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientLoginActivity">
+    tools:context=".client.ClientLoginActivity">
 
 
     <ImageView
@@ -17,25 +17,18 @@
         android:background="@drawable/client"
         android:scaleType="fitXY" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/medical_service_icon"/>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/clientSignInScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="480dp"
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="28dp"
         android:layout_marginBottom="-20dp"
-
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="480dp"
             android:orientation="vertical"
             android:padding="28dp">
 
@@ -47,38 +40,43 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter your username or email"
-                />
-            <EditText
+                android:hint="@string/please_enter_your_username_or_email"
+                android:drawableStart="@drawable/username_icon"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle">
+                <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter your password"
+                android:drawableStart="@drawable/password"
+                android:hint="@string/please_enter_your_password"
+                android:inputType="textPassword"
                 />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/clientLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="doClientLogin"
-                android:text="Login" />
+                android:text="@string/login" />
 
             <TextView
                 android:layout_width="280dp"
                 android:layout_height="29dp"
-                android:text="Not yet a user?, sign up below." />
-
-            <Button
-                android:id="@+id/clientSignUp1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:onClick="SignUpCard"
-                android:text="Sign Up" />
-
-
+                android:text="Not yet a user, click here to sign up." />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -87,7 +85,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/clientSignUpScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="480dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
@@ -97,67 +95,109 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="378dp"
+            android:layout_height="480dp"
             android:orientation="vertical"
             android:padding="28dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This is the Sign Up Card!" />
+                android:text="@string/this_is_the_sign_up_card" />
 
-            <EditText
-                android:id="@+id/newClientUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newClientUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/person"
+                    android:hint="Please enter a preferred username "/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newClientEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/email"
+                    android:hint="Please enter your email"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter a prefered username " />
+                app:endIconMode="password_toggle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newClientPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/password"
+                    android:inputType="textPassword"
+                    android:hint="Please enter your password" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/newClientEmail"
+            <!-- This replaces the last two Buttons only -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter your email" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:weightSum="3">
 
-            <EditText
-                android:id="@+id/newClientPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter your password" />
+                <!-- Circular Sign Up Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/counselorSignUp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SignUp"
+                    android:textSize="18sp"
+                    android:onClick="otpCard" />
 
-            <Button
-                android:id="@+id/clientSignUp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="otpCard"
-                android:text="Sign Up" />
+                <!-- Space between buttons -->
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
 
+                <!-- Rectangular Back Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/myButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="backToMain"
+                    android:text="Back"
+                    android:textSize="18sp"
+                    app:icon="@drawable/arrow"
+                    app:iconGravity="textStart"
+                    app:iconPadding="18dp"
+                    />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:onClick="backToMain"
-                android:text="Back" />
+            </LinearLayout>
+
 
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <!-- card for user sign up opt Verification-->
+    <!-- card for user sign up otp Verification-->
     <androidx.cardview.widget.CardView
         android:id="@+id/CotpCard"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="480dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="28dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="378dp"
+        android:layout_height="480dp"
         android:orientation="vertical"
         android:padding="28dp">
 
@@ -178,6 +218,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:digits="0123456789"
             android:hint="Enter OTP"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/verifyOtp"
@@ -213,7 +254,6 @@
     </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

@@ -1,4 +1,6 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.counsellor;
+
+import com.ultimate.mindsupport.HTTPClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +15,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ClientRegistrationManager {
-    private static final String REGISTER_URL = "https://lamp.ms.wits.ac.za/home/s2841286/client_register.php";
+public class CounsellorRegistrationManager {
+    private static final String REGISTER_URL = "https://lamp.ms.wits.ac.za/home/s2841286/counsellor_register.php";
     private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface RegistrationCallback {
@@ -22,16 +24,19 @@ public class ClientRegistrationManager {
         void onFailure(String error);
     }
 
-    public static void registerClient(String username, String password, String email, RegistrationCallback callback) {
-        final RequestBody[] formBody = {new FormBody.Builder()
-                .add("username", username)
+    public static void registerCounsellor(String fname,String lname, String reg_no, String password, String email, CounsellorRegistrationManager.RegistrationCallback callback) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("fname", fname)
+                .add("lname", lname)
+                .add("registration_number", reg_no)
                 .add("password", password)
                 .add("email", email)
-                .build()};
+                .build();
 
         Request request = new Request.Builder()
                 .url(REGISTER_URL)
-                .post(formBody[0])
+                .post(formBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -47,7 +52,7 @@ public class ClientRegistrationManager {
                     String json = response.body().string();
                     try {
                         JSONObject jsonObject = new JSONObject(json);
-                         message = jsonObject.get("message").toString();
+                        message = jsonObject.get("message").toString();
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -61,8 +66,7 @@ public class ClientRegistrationManager {
                 }
             }
         });
-
     }
 
-}
 
+}

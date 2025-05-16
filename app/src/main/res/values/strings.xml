@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Mind Support</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="not_yet_a_user_sign_up_below">Not yet a user?, sign up below.</string>
+    <string name="login">Login</string>
+    <string name="please_enter_your_password">Please enter your password</string>
+    <string name="please_enter_your_username_or_email">Please enter your username or email</string>
+    <string name="this_is_the_sign_up_card">This is the Sign Up Card!</string>
 </resources>

@@ -5,7 +5,7 @@
     android:id="@+id/councillor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CounsellorLoginActivity">
+    tools:context=".counsellor.CounsellorLoginActivity">
 
 
     <ImageView
@@ -26,15 +26,15 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/councillorSignInCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="480dp"
         android:layout_alignParentBottom="true"
-        app:cardCornerRadius="28dp"
         android:layout_marginBottom="-20dp"
+        app:cardCornerRadius="28dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="480dp"
             android:orientation="vertical"
             android:padding="28dp">
 
@@ -42,22 +42,35 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
                 android:text="Welcome to the councillor page _______"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif"/>
+                android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/username2"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter your username"
+                    android:drawableStart="@drawable/username_icon"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter your username"
-                />
-            <EditText
-                android:id="@+id/password2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter your password"
-                />
+                app:endIconMode="password_toggle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/password"
+                    android:hint="@string/please_enter_your_password"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/councillorLogin"
                 android:layout_width="wrap_content"
@@ -68,16 +81,8 @@
             <TextView
                 android:layout_width="280dp"
                 android:layout_height="29dp"
-                android:text="Not yet a user?, sign up below." />
-
-            <Button
-                android:id="@+id/councillorSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:onClick="SignUpCard"
-                android:text="Sign Up" />
-
-
+                android:text="Not yet a user?, sign up below." />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -86,16 +91,16 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/councillorSignUpScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="480dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="28dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="480dp"
             android:orientation="vertical"
             android:padding="28dp">
 
@@ -104,49 +109,101 @@
                 android:layout_height="wrap_content"
                 android:text="This is the Sign Up Card!" />
 
-            <EditText
-                android:id="@+id/newCounsFname"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newCounsFname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter first name "
+                    android:drawableStart="@drawable/names"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newCounsLname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter last name"
+                    android:drawableStart="@drawable/names"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newCounsRegNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" Please enter registration number"
+                    android:drawableStart="@drawable/license"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newCounsEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter your email"
+                    android:drawableStart="@drawable/email"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newCounsPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter your password"
+                    android:drawableStart="@drawable/password"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- This replaces the last two Buttons only -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Please enter first name " />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:weightSum="3">
 
-            <EditText
-                android:id="@+id/newCounsLname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter last name" />
+                <!-- Circular Sign Up Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/counselorSignUp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SignUp"
+                    android:textSize="18sp"
+                    android:onClick="otpCard2" />
 
-            <EditText
-                android:id="@+id/newCounsRegNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter registration number" />
+                <!-- Space between buttons -->
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/newCounsEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter your email" />
+                <!-- Rectangular Back Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/myButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="backToMain"
+                    android:text="Back"
+                    android:textSize="18sp"
+                    app:icon="@drawable/arrow"
+                    app:iconGravity="textStart"
+                    app:iconPadding="18dp"
+                    />
 
-            <EditText
-                android:id="@+id/newCounsPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter your password" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/counselorSignUp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="otpCard2"
-                android:text="Sign Up" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="backToMain"
-                android:text="Back" />
 
 
         </LinearLayout>
@@ -160,12 +217,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="28dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="378dp"
+            android:layout_height="380dp"
             android:orientation="vertical"
             android:padding="28dp">
 

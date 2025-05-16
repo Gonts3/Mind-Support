@@ -1,34 +1,29 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.client;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.IOException;
+import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.counsellor.CouncillorScreen;
+import com.ultimate.mindsupport.EmailVerification;
+import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.R;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class ClientLoginActivity extends AppCompatActivity {
 
@@ -48,6 +43,13 @@ public class ClientLoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        try {
+            SessionManager.init(this);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
 
@@ -133,8 +135,20 @@ public class ClientLoginActivity extends AppCompatActivity {
 
     }
     public void doSend(View v){
+        Button sendOtp = (Button)v;  // Cast the View to a Button
+        // Disable the button
+        sendOtp.setEnabled(false);
+        // Start 30-second countdown (adjust time if needed)
+        new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                sendOtp.setText("Wait " + millisUntilFinished / 1000 + "s");
+            }
+            public void onFinish() {
+                sendOtp.setText("Send OTP");
+                sendOtp.setEnabled(true); // Re-enable the button
+            }
+        }.start();
         String email = txtClientEmail.getText().toString();
-
         EmailVerification.SendOtp(email, new EmailVerification.VerificationCallback() {
             @Override
             public void onSuccess(String message) {

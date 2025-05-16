@@ -1,4 +1,4 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.counsellor;
 
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
@@ -15,6 +15,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.ultimate.mindsupport.EmailVerification;
+import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.R;
 
 public class CounsellorLoginActivity extends AppCompatActivity {
     CardView signUp,otpCard2,counsSignIn;

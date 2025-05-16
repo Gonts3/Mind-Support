@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void councillorActivity(View v){
-        Intent intent = new Intent(this, CounsellorLoginActivity.class);
+        Intent intent = new Intent(this, com.ultimate.mindsupport.counsellor.CounsellorLoginActivity.class);
         startActivity(intent);
     }
     public void clientActivity(View v){
-        Intent intent = new Intent(this, ClientLoginActivity.class);
+        Intent intent = new Intent(this, com.ultimate.mindsupport.client.ClientLoginActivity.class);
         startActivity(intent);
     }
 }
