@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.security.crypto)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

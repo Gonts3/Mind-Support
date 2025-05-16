@@ -1,34 +1,27 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.client;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.IOException;
+import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.counsellor.CouncillorScreen;
+import com.ultimate.mindsupport.EmailVerification;
+import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.R;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class ClientLoginActivity extends AppCompatActivity {
 
@@ -48,6 +41,13 @@ public class ClientLoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        try {
+            SessionManager.init(this);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
 
