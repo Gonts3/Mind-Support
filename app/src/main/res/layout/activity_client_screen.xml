@@ -7,15 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".client.ClientScreen">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="356dp"
-        android:layout_marginEnd="127dp"
-        android:layout_marginBottom="356dp"
-        android:text="Client's main screen after logging in"
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="288dp"
+        android:layout_height="214dp"
+        android:layout_marginTop="221dp"
+        android:layout_marginBottom="296dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

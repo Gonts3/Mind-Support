@@ -16,11 +16,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.ultimate.mindsupport.SelectProblemsActivity;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.client.ClientScreen;
 import com.ultimate.mindsupport.R;
+
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -83,12 +86,12 @@ public class ClientLoginActivity extends AppCompatActivity {
     public void doClientLogin(View v){
         //String username = txtClientUsername.getText().toString();
         String password = textPassword.getText().toString();
-        String email = textEmail.getText().toString();
+        String email = textEmail.getText().toString().trim();
 
         LoginManager.LoginUser(email, password, "client", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                Intent intent = new Intent(ClientLoginActivity.this, CouncillorScreen.class);
+                Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
                 startActivity(intent);
             }
             @Override

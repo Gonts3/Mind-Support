@@ -1,6 +1,8 @@
 package com.ultimate.mindsupport.client;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,5 +24,6 @@ public class ClientScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
     }
 }

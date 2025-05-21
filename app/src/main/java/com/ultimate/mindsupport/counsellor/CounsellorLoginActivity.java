@@ -1,11 +1,11 @@
 package com.ultimate.mindsupport.counsellor;
 
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -64,30 +64,10 @@ public class CounsellorLoginActivity extends AppCompatActivity {
     public void backToMain(View v){
         signUp.setVisibility(View.INVISIBLE);
     }
-    private void showSaveLoginDialog(Class<?> targetActivity) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to have your login details  ?");
-        builder.setCancelable(false);
 
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            // When the user click yes button then app will take to anada sscreen
-            Intent intent = new Intent(this, targetActivity);
-            startActivity(intent);
-        });
-        // Set the Negative button with No name Lambda
-        // OnClickListener method is use of DialogInterface interface.
-        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            // If user click no then dialog box is canceled.
-            dialog.cancel();
-            Intent intent = new Intent(this, targetActivity);
-            startActivity(intent);
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
     public void doCounselorLogin(View v ){
         String password = textPassword.getText().toString();
-        String email = textEmail.getText().toString();
+        String email = textEmail.getText().toString().trim();
 
         LoginManager.LoginUser(email, password, "counselor", new LoginManager.LoginCallback() {
             @Override
@@ -145,6 +125,19 @@ public class CounsellorLoginActivity extends AppCompatActivity {
     }
 
     public void doSend2(View v){
+        Button sendOtp = (Button)v;  // Cast the View to a Button
+        // Disable the button
+        sendOtp.setEnabled(false);
+        // Start 30-second countdown (adjust time if needed)
+        new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                sendOtp.setText("Wait " + millisUntilFinished / 1000 + "s");
+            }
+            public void onFinish() {
+                sendOtp.setText("Send OTP");
+                sendOtp.setEnabled(true); // Re-enable the button
+            }
+        }.start();
         String email = txtNewCounsEmail.getText().toString();
 
         EmailVerification.SendOtp(email, new EmailVerification.VerificationCallback() {

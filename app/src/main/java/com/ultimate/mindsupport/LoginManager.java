@@ -53,46 +53,6 @@ public class LoginManager {
 
                     if (json.contains("success")) {
                         callback.onSuccess("Login successful!");
-
-                        if(user=="client"){
-                            String client_id = "";
-                            String problem_id ="";
-                            String username = "";
-                            try {
-                                JSONObject jsonObject = new JSONObject(json);
-                                client_id = jsonObject.get("client_id").toString();
-                                problem_id = jsonObject.get("problem_id").toString();
-                                username = jsonObject.get("username").toString();
-                                Client client = new Client(client_id,username,problem_id);
-                                CurrentUser.set(client);
-
-
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }else{
-                            String counsellor_id = "";
-                            String counsellor_fname = "";
-                            String  counsellor_lname = "";
-                            String counsellor_reg = "";
-                            try {
-                                JSONObject jsonObject = new JSONObject(json);
-                                counsellor_id = jsonObject.get("counsellor_id").toString();
-                                counsellor_fname = jsonObject.get("counsellor_fname").toString();
-                                counsellor_lname = jsonObject.get("counsellor_lname").toString();
-                                counsellor_reg = jsonObject.get("counsellor_reg").toString();
-                                Counsellor counsellor = new Counsellor(counsellor_id,counsellor_fname,counsellor_lname,counsellor_reg);
-                                CurrentUser.set(counsellor);
-
-
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-
-
-                        }
-
                     } else {
                         callback.onFailure(json); // or parse JSON for error message
                     }
