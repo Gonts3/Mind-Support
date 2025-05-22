@@ -1,10 +1,15 @@
 package com.ultimate.mindsupport.client;
 
+import android.widget.Toast;
+
+import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.TestingActivity;
 import com.ultimate.mindsupport.User;
 
 public class Client extends User {
-    private String id;
+
     private String username;
     private String problemId;
 
@@ -13,7 +18,7 @@ public class Client extends User {
         super(id);
         this.username = username;
         this.problemId = problemId;
-        SessionManager.saveClientSession(id,username, problemId);
+        SessionManager.saveClientSession(id);
     }
 
     // Getters
@@ -27,18 +32,16 @@ public class Client extends User {
     }
 
     // Setters
-    public void setId(String id) {
-        this.id = id;
-        SessionManager.saveClientSession(id,username,problemId);
-    }
 
     public void setUsername(String username) {
         this.username = username;
-        SessionManager.saveClientSession(id,username,problemId);
+        //TODO Create a php script for api
     }
 
-    public void setProblemId(String problemId) {
+    public void setProblemId(String problemId, ProblemManager.ProblemCallback callback) {
         this.problemId = problemId;
-        SessionManager.saveClientSession(id,username,problemId);
+        ProblemManager.AddClientProblem(problemId, this.getId(), callback);
+
     }
+
 }

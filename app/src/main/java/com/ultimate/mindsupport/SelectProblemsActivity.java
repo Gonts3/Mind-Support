@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.ultimate.mindsupport.client.Client;
 import com.ultimate.mindsupport.client.ClientLoginActivity;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.client.ClientScreen;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class SelectProblemsActivity extends AppCompatActivity {
 
-    ArrayList<Integer> problemID= new ArrayList<>();
+
     RadioButton problem1,problem2,problem3,problem4,problem5,problem6,problem7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +56,25 @@ public class SelectProblemsActivity extends AppCompatActivity {
 
             Toast.makeText(this, "You chose: " + selectedText, Toast.LENGTH_SHORT).show();
             int problemId = Integer.parseInt(selected.getTag().toString());
-            problemID.add(problemId);
-            //go to client screen
-            Intent intent =  new Intent(SelectProblemsActivity.this, ClientScreen.class);
-            startActivity(intent);
+            Client client = (Client)CurrentUser.get();
+
+            client.setProblemId(String.valueOf(problemId), new ProblemManager.ProblemCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    //go to client screen
+                    Intent intent =  new Intent(SelectProblemsActivity.this, TestingActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    runOnUiThread(() ->{
+                        Toast.makeText(SelectProblemsActivity.this, error, Toast.LENGTH_LONG).show();
+                    });
+
+                }
+            });
+
         }
         else {
             Toast.makeText(this, "Please select a problem", Toast.LENGTH_SHORT).show();

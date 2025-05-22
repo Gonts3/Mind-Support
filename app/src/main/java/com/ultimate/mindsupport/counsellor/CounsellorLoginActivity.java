@@ -19,6 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.R;
+import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.TestingActivity;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class CounsellorLoginActivity extends AppCompatActivity {
     CardView signUp,otpCard2,counsSignIn;
@@ -30,11 +35,24 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_counsellor_login);
         initViews();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.councillor), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        try {
+            SessionManager.init(this);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (SessionManager.isLoggedIn()) {
+            SessionManager.loadCounsellorSession();
+            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
+            startActivity(intent);
+        }
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
 
@@ -69,10 +87,10 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         String password = textPassword.getText().toString();
         String email = textEmail.getText().toString().trim();
 
-        LoginManager.LoginUser(email, password, "counselor", new LoginManager.LoginCallback() {
+        LoginManager.LoginUser(email, password, "counsellor", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
+                Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
                 startActivity(intent);
             }
 

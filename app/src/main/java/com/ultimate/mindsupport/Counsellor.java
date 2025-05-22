@@ -14,15 +14,14 @@ public class Counsellor extends User {
         return reg_no;
     }
 
-    private ArrayList<String>problems;
+
 
     // Constructor (problems list is initialized inside)
     public Counsellor(String id, String fname, String lname, String reg_no) {
         super(id);
         this.fname = fname;
         this.lname = lname;
-        this.problems = new ArrayList<>();
-        SessionManager.saveCounsellorSession(id,reg_no, fname, lname);
+        SessionManager.saveCounsellorSession(id);
     }
 
 
@@ -35,16 +34,19 @@ public class Counsellor extends User {
         return lname;
     }
 
-    public List<String> getProblems() {
-        return problems;
+    public void getProblems(ProblemManager.ProblemListCallback callback) {
+            ProblemManager.GetCounsellorProblems(this.getId(),callback);
     }
     // Add a problem to the list
-    public void addProblem(String problem) {
-        this.problems.add(problem);
+    public void addProblems(ArrayList<String> problem, ProblemManager.ProblemCallback callback) {
+        ProblemManager.AddCounsellorProblems(this.getId(), problem,callback);
+        //TODO Create a php script for api
     }
 
     // Remove a problem from the list
     public void removeProblem(String problem) {
-        this.problems.remove(problem);
+
+
+        //TODO Create a php script for api
     }
 }

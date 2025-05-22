@@ -9,6 +9,7 @@ public class CurrentUser {
 
     public static void set(User user) {
         current = user;
+        setLoggedIn(true);
     }
 
     public static User get() {
@@ -26,4 +27,25 @@ public class CurrentUser {
     public static boolean isCounsellor() {
         return current instanceof Counsellor;
     }
+    public static Client getClient() {
+        if (current instanceof Client) {
+            return (Client) current;
+        }
+        return null;
+    }
+    public static Counsellor getCounsellor() {
+        if (current instanceof Counsellor) {
+            return (Counsellor) current;
+        }
+        return null;
+    }
+    public static boolean isLoggedIn() {
+        return SessionManager.isLoggedIn();
+    }
+    public static void setLoggedIn(boolean value) {
+        SessionManager.setLoggedIn(value);
+    }
+
+
+
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,9 +16,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import android.widget.Button;
 import com.ultimate.mindsupport.SelectProblemsActivity;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.TestingActivity;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
@@ -52,6 +54,11 @@ public class ClientLoginActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        if (SessionManager.isLoggedIn()) {
+            SessionManager.loadClientSession();
+            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+            startActivity(intent);
         }
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
@@ -152,6 +159,7 @@ public class ClientLoginActivity extends AppCompatActivity {
             }
         }.start();
         String email = txtClientEmail.getText().toString();
+
         EmailVerification.SendOtp(email, new EmailVerification.VerificationCallback() {
             @Override
             public void onSuccess(String message) {

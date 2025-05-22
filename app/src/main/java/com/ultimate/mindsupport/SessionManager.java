@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
+import com.ultimate.mindsupport.client.Client;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 public class SessionManager {
@@ -14,15 +16,10 @@ public class SessionManager {
 
     // Keys
     private static final String KEY_USER_TYPE = "user_type";
-    private static final String KEY_USERNAME = "username";
     private static final String KEY_CLIENT_ID = "client_id";
-    private static final String KEY_PROBLEM_ID = "problem_id";
     private static final String KEY_COUNSELLOR_ID = "counsellor_id";
-    private static final String KEY_COUNSELLOR_REG = "counsellor_reg";
-    private static final String KEY_COUNSELLOR_FNAME = "counsellor_fname";
-    private static final String KEY_COUNSELLOR_LNAME = "counsellor_lname";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
-    private static final String KEY_HAS_SAVED_CREDENTIALS = "has_saved_credentials";
+
 
 
     public static void init(Context context) throws GeneralSecurityException, IOException {
@@ -40,25 +37,54 @@ public class SessionManager {
             );
         }
     }
-
-    // Save client session
-    public static void saveClientSession(String clientId,String username, String problemId) {
-        prefs.edit()
-                .putString(KEY_USER_TYPE, "client")
-                .putString(KEY_PROBLEM_ID, problemId)
-                .putString(KEY_CLIENT_ID, clientId)
-                .putString(KEY_USERNAME, username)
-                .apply();
+    public static void setLoggedIn(boolean value) {
+        prefs.edit().putBoolean(KEY_IS_LOGGED_IN, value).apply();
     }
 
+
+
+    // Save client session
+    public static void saveClientSession(String clientId) {
+        prefs.edit()
+                .putString(KEY_USER_TYPE, "client")
+                .putString(KEY_CLIENT_ID, clientId)
+                .apply();
+    }
+    public static void loadClientSession(){
+        String clientId = prefs.getString(KEY_CLIENT_ID, null);
+        GetUser.getClient(clientId, new GetUser.GetUserCallback() {
+            @Override
+            public void onSuccess(String message) {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    public static void loadCounsellorSession(){
+        String counsellorId = prefs.getString(KEY_COUNSELLOR_ID, null);
+        GetUser.GetCounsellor(counsellorId, new GetUser.GetUserCallback() {
+
+
+                    @Override
+                    public void onSuccess(String message) {
+
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+    }
     // Save counsellor session
-    public static void saveCounsellorSession(String id,String reg_no ,String fname, String lname) {
+    public static void saveCounsellorSession(String id) {
         prefs.edit()
                 .putString(KEY_USER_TYPE, "counsellor")
                 .putString(KEY_COUNSELLOR_ID, id)
-                .putString(KEY_COUNSELLOR_FNAME, fname)
-                .putString(KEY_COUNSELLOR_LNAME, lname)
-                .putString(KEY_COUNSELLOR_REG, reg_no)
                 .apply();
     }
 
@@ -75,19 +101,14 @@ public class SessionManager {
         return prefs.getString(KEY_COUNSELLOR_ID, null);
     }
 
-    public static String getCounsellorFname() {
-        return prefs.getString(KEY_COUNSELLOR_FNAME, null);
-    }
 
-    public static String getCounsellorLname() {
-        return prefs.getString(KEY_COUNSELLOR_LNAME, null);
-    }
 
     // Clear session
+
     public static void clearSession() {
         prefs.edit().clear().apply();
     }
-    public static void setLoginState(boolean isLoggedIn) {
+    public static void setLogin(boolean isLoggedIn) {
         prefs.edit().putBoolean(KEY_IS_LOGGED_IN, isLoggedIn).apply();
     }
 
@@ -95,13 +116,7 @@ public class SessionManager {
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    public static void setSavedCredentials(boolean saved) {
-        prefs.edit().putBoolean(KEY_HAS_SAVED_CREDENTIALS, saved).apply();
-    }
 
-    public static boolean hasSavedCredentials() {
-        return prefs.getBoolean(KEY_HAS_SAVED_CREDENTIALS, false);
-    }
 
 
 }

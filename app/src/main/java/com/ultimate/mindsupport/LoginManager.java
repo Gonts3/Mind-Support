@@ -53,6 +53,36 @@ public class LoginManager {
 
                     if (json.contains("success")) {
                         callback.onSuccess("Login successful!");
+
+                        if(user=="client"){
+                            String client_id = "";
+                            try {
+                                JSONObject jsonObject = new JSONObject(json);
+                                client_id = jsonObject.get("user_id").toString();
+                                SessionManager.saveClientSession(client_id);
+                                SessionManager.loadClientSession();
+
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        }else{
+                            String counsellor_id = "";
+                            try {
+                                JSONObject jsonObject = new JSONObject(json);
+                                counsellor_id = jsonObject.get("user_id").toString();
+                                SessionManager.saveCounsellorSession(counsellor_id);
+                                SessionManager.loadCounsellorSession();
+
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+
+                        }
+
                     } else {
                         callback.onFailure(json); // or parse JSON for error message
                     }
