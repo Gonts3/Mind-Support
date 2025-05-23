@@ -33,16 +33,16 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
-        if (SessionManager.isLoggedIn()) {
-            if (SessionManager.getUserType().equals("client")) {
-                Intent intent = new Intent(this, ClientLoginActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, CounsellorLoginActivity.class);
-                startActivity(intent);
-            }
-        }
+//
+//        if (SessionManager.isLoggedIn()) {
+//            if (SessionManager.getUserType().equals("client")) {
+//                Intent intent = new Intent(this, ClientLoginActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, CounsellorLoginActivity.class);
+//                startActivity(intent);
+//            }
+//        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

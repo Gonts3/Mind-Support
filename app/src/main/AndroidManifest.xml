@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MindSupport"
         tools:targetApi="31">
         <activity
+            android:name=".CounsellorSelectedProblems"
+            android:exported="false" />
+        <activity
             android:name=".TestingActivity"
             android:exported="false" />
         <activity

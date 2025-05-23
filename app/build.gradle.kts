@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.okhttp)
     implementation(libs.okhttp.urlconnection)
+    implementation ("com.google.android.material:material:1.12.0")
     implementation (libs.material.v1110)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
