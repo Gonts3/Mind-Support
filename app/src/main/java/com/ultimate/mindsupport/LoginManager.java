@@ -17,6 +17,7 @@ import okhttp3.Response;
 
 public class LoginManager {
     private static final String LOGIN_URL = "https://lamp.ms.wits.ac.za/home/s2841286/login.php";
+    private static final String PASSWORD_RESET_URL = "https://lamp.ms.wits.ac.za/home/s2841286/password_reset.php";
     private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface LoginCallback {
@@ -49,10 +50,16 @@ public class LoginManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful() && response.body() != null) {
                     String json = response.body().string();
-
+                    String message = "";
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     if (json.contains("success")) {
-                        callback.onSuccess("Login successful!");
+                        callback.onSuccess(message);
 
                         if(user=="client"){
                             String client_id = "";
@@ -84,12 +91,57 @@ public class LoginManager {
                         }
 
                     } else {
-                        callback.onFailure(json); // or parse JSON for error message
+                        callback.onFailure(message); // or parse JSON for error message
                     }
                 } else {
                     callback.onFailure("Server error");
                 }
             }
         });
+    }
+    public static void ResetPassword(String email, String password, String user, LoginManager.LoginCallback callback){
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .add("user", user)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(PASSWORD_RESET_URL)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure("Network error: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    String json = response.body().string();
+                    String message = "";
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    if (json.contains("success")) {
+                        callback.onSuccess(message);
+                        }
+
+                    else {
+                        callback.onFailure(message); // or parse JSON for error message
+                    }
+                } else {
+                    callback.onFailure("Server error");
+                }
+            }
+        });
+
+
     }
 }

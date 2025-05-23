@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.ultimate.mindsupport.CounsellorSelectedProblems;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.R;
@@ -41,19 +42,19 @@ public class CounsellorLoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-//        try {
-//            SessionManager.init(this);
-//        } catch (GeneralSecurityException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        if (SessionManager.isLoggedIn()) {
-//            SessionManager.loadCounsellorSession();
-//            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
-//            startActivity(intent);
-//        }
-        // Initially hide both sign-up and sign-in cards
+        try {
+            SessionManager.init(this);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (SessionManager.isLoggedIn()) {
+            SessionManager.loadCounsellorSession();
+            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
+            startActivity(intent);
+        }
+         //Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
 
     }
@@ -90,7 +91,10 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         LoginManager.LoginUser(email, password, "counsellor", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
+                runOnUiThread(() ->
+                        Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                );
+                Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
                 startActivity(intent);
             }
 
@@ -117,6 +121,7 @@ public class CounsellorLoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG);
                         otpCard2.setVisibility(View.VISIBLE);
 
                         signUp.setVisibility(View.INVISIBLE);

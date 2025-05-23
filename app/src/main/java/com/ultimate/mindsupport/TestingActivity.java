@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ultimate.mindsupport.client.Client;
 import com.ultimate.mindsupport.client.ClientLoginActivity;
+import com.ultimate.mindsupport.counsellor.CounsellorLoginActivity;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -51,19 +52,7 @@ public class TestingActivity extends AppCompatActivity {
         txtTest = findViewById(R.id.txtTests);
 
         if(CurrentUser.getClient()!=null) {
-            Log.d("AddProblems: ","Here!");
-            Client client = (Client) CurrentUser.getClient();
-            client.setProblemId("7", new ProblemManager.ProblemCallback() {
-                @Override
-                public void onSuccess(String message) {
 
-                }
-
-                @Override
-                public void onFailure(String error) {
-
-                }
-            });
 
         }else{
             Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
@@ -80,21 +69,42 @@ public class TestingActivity extends AppCompatActivity {
     }
     public void DoProblems(View v){
         txtTest = findViewById(R.id.txtTests);
-        Client client = CurrentUser.getClient();
-        Log.d("DoProblems: ","Button clicked");
-        ProblemManager.AssignCounsellor(client.getId().toString(),client.getProblemId(), new ProblemManager.ProblemCallback() {
+        LoginManager.ResetPassword("gontsemaledu99@gmail.com","ICTPASS","counsellor", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                runOnUiThread(() -> {
-                    txtTest.setText(message);
+                    runOnUiThread(() ->{
+                            Toast.makeText(TestingActivity.this,message, Toast.LENGTH_LONG).show();
+
                 });
             }
 
             @Override
             public void onFailure(String error) {
+                runOnUiThread(() ->{
+                    Toast.makeText(TestingActivity.this,error, Toast.LENGTH_LONG).show();
 
+                });
             }
-        });
+            });
+
+        Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
+        
+        if (counsellor != null) {
+            counsellor.getProblems(new ProblemManager.ProblemListCallback() {
+                @Override
+                public void onSuccess(List<String> problems) {
+                    runOnUiThread(() ->{
+                       txtTest.setText(problems.toString());
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+
+                }
+            });
+
+        }
 
     }
 
