@@ -48,13 +48,16 @@ public class SelectProblemsActivity extends AppCompatActivity {
 
     public void getProblemID(View v){
         RadioGroup group = findViewById(R.id.idGroup);
+
         int selectedId = group.getCheckedRadioButtonId();
 
         if (selectedId != -1) {
             RadioButton selected = findViewById(selectedId);
+
             String selectedText = selected.getText().toString();
 
             Toast.makeText(this, "You chose: " + selectedText, Toast.LENGTH_SHORT).show();
+
             int problemId = Integer.parseInt(selected.getTag().toString());
             Client client = (Client)CurrentUser.get();
 
@@ -65,13 +68,11 @@ public class SelectProblemsActivity extends AppCompatActivity {
                     Intent intent =  new Intent(SelectProblemsActivity.this, TestingActivity.class);
                     startActivity(intent);
                 }
-
                 @Override
                 public void onFailure(String error) {
                     runOnUiThread(() ->{
                         Toast.makeText(SelectProblemsActivity.this, error, Toast.LENGTH_LONG).show();
                     });
-
                 }
             });
 
