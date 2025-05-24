@@ -33,6 +33,16 @@ public class Counsellor extends User {
     public String getLname() {
         return lname;
     }
+    public void setFname(String firstname, AccountManager.AccountCallback callback) {
+        AccountManager.ChangeCounsellorName(this.getId(),firstname,"", callback);
+
+    }
+    public void setLname(String lastname, AccountManager.AccountCallback callback) {
+        AccountManager.ChangeCounsellorName(this.getId(),"",lastname, callback);
+    }
+    public void setNames(String firstname,String lastname, AccountManager.AccountCallback callback) {
+        AccountManager.ChangeCounsellorName(this.getId(),firstname,lastname, callback);
+    }
 
     public void getProblems(ProblemManager.ProblemListCallback callback) {
             ProblemManager.GetCounsellorProblems(this.getId(),callback);
@@ -40,7 +50,6 @@ public class Counsellor extends User {
     // Add a problem to the list
     public void addProblems(ArrayList<String> problem, ProblemManager.ProblemCallback callback) {
         ProblemManager.AddCounsellorProblems(this.getId(), problem,callback);
-        //TODO Create a php script for api
     }
 
     // Remove a problem from the list

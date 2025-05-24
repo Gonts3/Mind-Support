@@ -67,45 +67,28 @@ public class TestingActivity extends AppCompatActivity {
 
 
     }
-    public void DoProblems(View v){
+    public void DoProblems(View v) {
         txtTest = findViewById(R.id.txtTests);
-        LoginManager.ResetPassword("gontsemaledu99@gmail.com","ICTPASS","counsellor", new LoginManager.LoginCallback() {
-            @Override
-            public void onSuccess(String message) {
-                    runOnUiThread(() ->{
-                            Toast.makeText(TestingActivity.this,message, Toast.LENGTH_LONG).show();
-
-                });
-            }
-
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(() ->{
-                    Toast.makeText(TestingActivity.this,error, Toast.LENGTH_LONG).show();
-
-                });
-            }
-            });
-
         Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
-        
+
         if (counsellor != null) {
-            counsellor.getProblems(new ProblemManager.ProblemListCallback() {
+            counsellor.setNames("Jack","Smalllephant", new AccountManager.AccountCallback() {
                 @Override
-                public void onSuccess(List<String> problems) {
+                public void onSuccess(String message) {
                     runOnUiThread(() ->{
-                       txtTest.setText(problems.toString());
+                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+                        txtTest.setText(counsellor.getFname() + " "+ counsellor.getLname());
                     });
                 }
 
                 @Override
                 public void onFailure(String error) {
-
+                    runOnUiThread(() ->{
+                        Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
+                        Log.d("onFailure: ","here");
+                    });
                 }
             });
-
         }
-
     }
-
 }

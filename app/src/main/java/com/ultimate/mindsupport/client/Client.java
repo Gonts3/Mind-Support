@@ -2,6 +2,7 @@ package com.ultimate.mindsupport.client;
 
 import android.widget.Toast;
 
+import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.SessionManager;
@@ -33,8 +34,9 @@ public class Client extends User {
 
     // Setters
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String username,AccountManager.AccountCallback callback) {
+        AccountManager.ChangeClientName(this.getId(),username,callback);
+
         //TODO Create a php script for api
     }
 

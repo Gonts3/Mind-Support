@@ -50,35 +50,15 @@ public class SessionManager {
                 .putString(KEY_CLIENT_ID, clientId)
                 .apply();
     }
-    public static void loadClientSession(){
+    public static void loadClientSession(GetUser.GetUserCallback callback){
         String clientId = prefs.getString(KEY_CLIENT_ID, null);
-        GetUser.getClient(clientId, new GetUser.GetUserCallback() {
-            @Override
-            public void onSuccess(String message) {
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
+        GetUser.getClient(clientId,callback);
     }
-    public static void loadCounsellorSession(){
+    public static void loadCounsellorSession(GetUser.GetUserCallback callback){
         String counsellorId = prefs.getString(KEY_COUNSELLOR_ID, null);
-        GetUser.GetCounsellor(counsellorId, new GetUser.GetUserCallback() {
+        GetUser.GetCounsellor(counsellorId, callback);
 
 
-                    @Override
-                    public void onSuccess(String message) {
-
-                    }
-
-                    @Override
-                    public void onFailure(String error) {
-
-                    }
-                });
     }
     // Save counsellor session
     public static void saveCounsellorSession(String id) {

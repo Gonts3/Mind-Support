@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ultimate.mindsupport.CounsellorSelectedProblems;
 import com.ultimate.mindsupport.EmailVerification;
+import com.ultimate.mindsupport.GetUser;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
@@ -50,11 +51,21 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadCounsellorSession();
-            Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
-            startActivity(intent);
-       }
+//        if (SessionManager.isLoggedIn()) {
+//            SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
+//                @Override
+//                public void onSuccess(String message) {
+//                    Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
+//                    startActivity(intent);
+//                }
+//
+//                @Override
+//                public void onFailure(String error) {
+//
+//                }
+//            });
+//
+//       }
          //Initially hide both sign-up and sign-in cards
        signUp.setVisibility(View.INVISIBLE);
 
@@ -95,8 +106,19 @@ public class CounsellorLoginActivity extends AppCompatActivity {
                 runOnUiThread(() ->
                         Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
                 );
-                Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
-                startActivity(intent);
+                SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+
             }
 
             @Override

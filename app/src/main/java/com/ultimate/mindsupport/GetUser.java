@@ -2,6 +2,8 @@ package com.ultimate.mindsupport;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.ultimate.mindsupport.client.Client;
 
 import org.json.JSONException;
@@ -28,6 +30,7 @@ public class GetUser {
         void onFailure(String error);
     }
     public static void getClient(String id, GetUserCallback callback) {
+        Log.d( "getClient: ","here");
             RequestBody formBody = new FormBody.Builder()
                     .add("id",id)
                     .build();
@@ -39,7 +42,7 @@ public class GetUser {
 
             client.newCall(request).enqueue(new Callback() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     callback.onFailure("Network error: " + e.getMessage());
                 }
 
@@ -50,8 +53,8 @@ public class GetUser {
 
 
                         if (json.contains("success")) {
-                            callback.onSuccess("Retrieved user!");
 
+                            Log.d( "getClient: ","heresuccess");
 
                                 String client_id = "";
                                 String client_username = "";
@@ -66,6 +69,7 @@ public class GetUser {
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
+                            callback.onSuccess("Retrieved user!");
 
                         }
                         else {

@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.widget.Button;
+
+import com.ultimate.mindsupport.GetUser;
 import com.ultimate.mindsupport.SelectProblemsActivity;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.TestingActivity;
@@ -57,11 +59,21 @@ public class ClientLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadClientSession();
-            Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
-            startActivity(intent);
-        }
+//        if (SessionManager.isLoggedIn()) {
+//            SessionManager.loadClientSession(new GetUser.GetUserCallback() {
+//                @Override
+//                public void onSuccess(String message) {
+//                    Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
+//                    startActivity(intent);
+//                }
+//
+//                @Override
+//                public void onFailure(String error) {
+//
+//                }
+//            });
+//
+//        }
 
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
@@ -101,8 +113,27 @@ public class ClientLoginActivity extends AppCompatActivity {
         LoginManager.LoginUser(email, password, "client", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
-                startActivity(intent);
+                runOnUiThread(() ->
+                        Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                );
+                SessionManager.loadClientSession(new GetUser.GetUserCallback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        runOnUiThread(() ->
+                                Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                        );
+                        Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        runOnUiThread(() ->
+                                Toast.makeText(ClientLoginActivity.this,error, Toast.LENGTH_LONG).show()
+                        );
+                    }
+                });
+
             }
             @Override
             public void onFailure(String error) {
