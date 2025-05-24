@@ -16,7 +16,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LoadUsers"
+            android:name=".chat.LoadUser"
+            android:exported="false" />
+        <activity
+            android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".CounsellorSelectedProblems"

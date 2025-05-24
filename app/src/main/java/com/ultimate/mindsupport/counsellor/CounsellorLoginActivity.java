@@ -22,6 +22,7 @@ import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.TestingActivity;
+import com.ultimate.mindsupport.chat.LoadUser;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -51,11 +52,11 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         }
         if (SessionManager.isLoggedIn()) {
             SessionManager.loadCounsellorSession();
-            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
+            Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
             startActivity(intent);
-        }
+       }
          //Initially hide both sign-up and sign-in cards
-        signUp.setVisibility(View.INVISIBLE);
+       signUp.setVisibility(View.INVISIBLE);
 
     }
     private void initViews(){
@@ -94,7 +95,7 @@ public class CounsellorLoginActivity extends AppCompatActivity {
                 runOnUiThread(() ->
                         Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
                 );
-                Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
+                Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
                 startActivity(intent);
             }
 

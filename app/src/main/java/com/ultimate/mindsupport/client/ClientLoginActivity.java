@@ -20,6 +20,7 @@ import android.widget.Button;
 import com.ultimate.mindsupport.SelectProblemsActivity;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.TestingActivity;
+import com.ultimate.mindsupport.chat.LoadUser;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
@@ -58,7 +59,7 @@ public class ClientLoginActivity extends AppCompatActivity {
         }
         if (SessionManager.isLoggedIn()) {
             SessionManager.loadClientSession();
-            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+            Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
             startActivity(intent);
         }
 
@@ -100,7 +101,7 @@ public class ClientLoginActivity extends AppCompatActivity {
         LoginManager.LoginUser(email, password, "client", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+                Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
                 startActivity(intent);
             }
             @Override
