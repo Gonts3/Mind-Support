@@ -54,8 +54,6 @@ public class GetUser {
 
                         if (json.contains("success")) {
 
-                            Log.d( "getClient: ","heresuccess");
-
                                 String client_id = "";
                                 String client_username = "";
                                 String problem_id = "";

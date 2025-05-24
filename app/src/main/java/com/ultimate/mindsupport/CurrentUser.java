@@ -42,6 +42,7 @@ public class CurrentUser {
     public static boolean isLoggedIn() {
         return SessionManager.isLoggedIn();
     }
+
     public static void setLoggedIn(boolean value) {
         SessionManager.setLoggedIn(value);
     }

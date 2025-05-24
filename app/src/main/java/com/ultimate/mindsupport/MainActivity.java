@@ -33,31 +33,53 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-//
+
 //        if (SessionManager.isLoggedIn()) {
 //            if (SessionManager.getUserType().equals("client")) {
-//                Intent intent = new Intent(this, ClientLoginActivity.class);
-//                startActivity(intent);
+//                SessionManager.loadClientSession(new GetUser.GetUserCallback() {
+//                    @Override
+//                    public void onSuccess(String message) {
+//                        Intent intent = new Intent(MainActivity.this, TestingActivity.class);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String error) {
+//
+//                    }
+//                });
+//
 //            } else {
-//                Intent intent = new Intent(this, CounsellorLoginActivity.class);
-//                startActivity(intent);
+//                SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
+//                    @Override
+//                    public void onSuccess(String message) {
+//                        Intent intent = new Intent(MainActivity.this, TestingActivity.class);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String error) {
+//
+//                    }
+//
+//
+//                });
 //            }
 //        }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
 
 
-
+        }
+        public void councillorActivity (View v){
+            Intent intent = new Intent(this, CounsellorLoginActivity.class);
+            startActivity(intent);
+        }
+        public void clientActivity (View v){
+            Intent intent = new Intent(this, ClientLoginActivity.class);
+            startActivity(intent);
+        }
     }
-    public void councillorActivity(View v){
-        Intent intent = new Intent(this, CounsellorLoginActivity.class);
-        startActivity(intent);
-    }
-    public void clientActivity(View v){
-        Intent intent = new Intent(this, ClientLoginActivity.class);
-        startActivity(intent);
-    }
-}

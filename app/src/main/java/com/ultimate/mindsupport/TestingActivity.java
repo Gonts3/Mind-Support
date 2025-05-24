@@ -1,5 +1,6 @@
 package com.ultimate.mindsupport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +53,21 @@ public class TestingActivity extends AppCompatActivity {
         txtTest = findViewById(R.id.txtTests);
 
         if(CurrentUser.getClient()!=null) {
+            AccountManager.DeleteCounsellor("1", new AccountManager.AccountCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    runOnUiThread(() ->{
+                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+                    });
+                }
 
+                @Override
+                public void onFailure(String error) {
+                        runOnUiThread(() ->{
+                            Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
+                        });
+                }
+            });
 
         }else{
             Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
@@ -72,7 +87,7 @@ public class TestingActivity extends AppCompatActivity {
         Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
 
         if (counsellor != null) {
-            counsellor.setNames("Jack","Smalllephant", new AccountManager.AccountCallback() {
+            counsellor.setNames("Jack","Smallephant", new AccountManager.AccountCallback() {
                 @Override
                 public void onSuccess(String message) {
                     runOnUiThread(() ->{
@@ -85,7 +100,6 @@ public class TestingActivity extends AppCompatActivity {
                 public void onFailure(String error) {
                     runOnUiThread(() ->{
                         Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
-                        Log.d("onFailure: ","here");
                     });
                 }
             });
