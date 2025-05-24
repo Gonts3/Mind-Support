@@ -30,6 +30,7 @@ public class SelectProblemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_select_problems);
+        initViews();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,6 +60,8 @@ public class SelectProblemsActivity extends AppCompatActivity {
             Toast.makeText(this, "You chose: " + selectedText, Toast.LENGTH_SHORT).show();
 
             int problemId = Integer.parseInt(selected.getTag().toString());
+            Log.d("problemId", String.valueOf(problemId));
+
             Client client = (Client)CurrentUser.get();
 
             client.setProblemId(String.valueOf(problemId), new ProblemManager.ProblemCallback() {

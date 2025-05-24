@@ -16,9 +16,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LoadUsers"
-            android:exported="false" />
-        <activity
             android:name=".CounsellorSelectedProblems"
             android:exported="false" />
         <activity

@@ -49,11 +49,11 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadCounsellorSession();
-            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
-            startActivity(intent);
-        }
+//        if (SessionManager.isLoggedIn()) {
+//            SessionManager.loadCounsellorSession();
+//            Intent intent = new Intent(CounsellorLoginActivity.this, TestingActivity.class);
+//            startActivity(intent);
+//        }
          //Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
 

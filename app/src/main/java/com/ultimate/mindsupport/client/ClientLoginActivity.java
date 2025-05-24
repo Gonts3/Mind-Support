@@ -56,11 +56,11 @@ public class ClientLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadClientSession();
-            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
-            startActivity(intent);
-        }
+//        if (SessionManager.isLoggedIn()) {
+//            SessionManager.loadClientSession();
+//            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+//            startActivity(intent);
+//        }
 
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
