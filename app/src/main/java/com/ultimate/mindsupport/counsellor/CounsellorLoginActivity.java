@@ -109,7 +109,7 @@ public class CounsellorLoginActivity extends AppCompatActivity {
                 SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
                     @Override
                     public void onSuccess(String message) {
-                        Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
+                        Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
                         startActivity(intent);
                     }
 

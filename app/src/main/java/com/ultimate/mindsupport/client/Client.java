@@ -37,13 +37,15 @@ public class Client extends User {
     public void setUsername(String username,AccountManager.AccountCallback callback) {
         AccountManager.ChangeClientName(this.getId(),username,callback);
 
-        //TODO Create a php script for api
     }
 
     public void setProblemId(String problemId, ProblemManager.ProblemCallback callback) {
         this.problemId = problemId;
         ProblemManager.AddClientProblem(problemId, this.getId(), callback);
 
+    }
+    public void assignCounsellor(ProblemManager.ProblemCallback callback){
+        ProblemManager.AssignCounsellor(this.getId(),this.getProblemId(),callback);
     }
 
 }

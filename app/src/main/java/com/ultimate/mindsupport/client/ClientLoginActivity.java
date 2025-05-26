@@ -122,7 +122,7 @@ public class ClientLoginActivity extends AppCompatActivity {
                         runOnUiThread(() ->
                                 Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
                         );
-                        Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
+                        Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
                         startActivity(intent);
                     }
 

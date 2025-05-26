@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,21 +54,27 @@ public class TestingActivity extends AppCompatActivity {
         txtTest = findViewById(R.id.txtTests);
 
         if(CurrentUser.getClient()!=null) {
-            AccountManager.DeleteCounsellor("1", new AccountManager.AccountCallback() {
-                @Override
-                public void onSuccess(String message) {
-                    runOnUiThread(() ->{
-                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
-                    });
-                }
+            Client client = (Client) CurrentUser.getClient();
+            if(Integer.valueOf(client.getProblemId()) >0){
+                client.assignCounsellor(new ProblemManager.ProblemCallback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        runOnUiThread(() ->{
+                            Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
 
-                @Override
-                public void onFailure(String error) {
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
                         runOnUiThread(() ->{
                             Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
+
                         });
-                }
-            });
+                    }
+                });
+            }
+
 
         }else{
             Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
@@ -84,25 +91,26 @@ public class TestingActivity extends AppCompatActivity {
     }
     public void DoProblems(View v) {
         txtTest = findViewById(R.id.txtTests);
-        Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
+        EditText edt = findViewById(R.id.edtEmail);
+        EmailVerification.SendPasswordOtp(String.valueOf(edt.getText()),"client", new EmailVerification.VerificationCallback() {
+            @Override
+            public void onSuccess(String message) {
+                runOnUiThread(() ->{
+                    Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
 
-        if (counsellor != null) {
-            counsellor.setNames("Jack","Smallephant", new AccountManager.AccountCallback() {
-                @Override
-                public void onSuccess(String message) {
-                    runOnUiThread(() ->{
-                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
-                        txtTest.setText(counsellor.getFname() + " "+ counsellor.getLname());
-                    });
-                }
+                });
+            }
 
-                @Override
-                public void onFailure(String error) {
-                    runOnUiThread(() ->{
-                        Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
-                    });
-                }
-            });
-        }
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(() ->{
+                    Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
+
+                });
+            }
+        });
+
+
+
     }
 }
