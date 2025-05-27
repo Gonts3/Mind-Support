@@ -1,8 +1,11 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.counsellor;
+
+import com.ultimate.mindsupport.AccountManager;
+import com.ultimate.mindsupport.ProblemManager;
+import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.User;
 
 import java.util.ArrayList;
-
-import java.util.List;
 
 public class Counsellor extends User {
 
@@ -39,9 +42,12 @@ public class Counsellor extends User {
     }
     public void setLname(String lastname, AccountManager.AccountCallback callback) {
         AccountManager.ChangeCounsellorName(this.getId(),"",lastname, callback);
+
     }
     public void setNames(String firstname,String lastname, AccountManager.AccountCallback callback) {
         AccountManager.ChangeCounsellorName(this.getId(),firstname,lastname, callback);
+        this.fname = firstname;
+        this.lname = lastname;
     }
 
     public void getProblems(ProblemManager.ProblemListCallback callback) {

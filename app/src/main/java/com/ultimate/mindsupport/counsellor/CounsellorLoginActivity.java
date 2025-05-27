@@ -16,22 +16,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.ultimate.mindsupport.CounsellorSelectedProblems;
+import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.GetUser;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
-import com.ultimate.mindsupport.TestingActivity;
-import com.ultimate.mindsupport.chat.LoadUser;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 public class CounsellorLoginActivity extends AppCompatActivity {
-    CardView signUp,otpCard2,counsSignIn;
-    EditText txtNewCounsFname,txtNewCounsLname,txtNewCounsRegNum,txtNewCounsEmail,txtNewClientPassword,counsOTP,textEmail,textPassword;
-    String CounsToken;
+    private CardView signUp,otpCard2,counsSignIn,counsellorResetPassword;
+    private EditText txtNewCounsFname,txtNewCounsLname,txtNewCounsRegNum,txtNewCounsEmail,txtNewClientPassword,counsOTP,textEmail,textPassword,reEmail,rePassword;
+    private String CounsToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,21 +49,21 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        if (SessionManager.isLoggedIn()) {
-//            SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
-//                @Override
-//                public void onSuccess(String message) {
-//                    Intent intent = new Intent(CounsellorLoginActivity.this, LoadUser.class);
-//                    startActivity(intent);
-//                }
-//
-//                @Override
-//                public void onFailure(String error) {
-//
-//                }
-//            });
-//
-//       }
+        if (SessionManager.isLoggedIn()) {
+            SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(String error) {
+
+                }
+            });
+
+       }
          //Initially hide both sign-up and sign-in cards
        signUp.setVisibility(View.INVISIBLE);
 
@@ -82,6 +80,9 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         counsOTP = findViewById(R.id.txtOtp2);
         textEmail = findViewById(R.id.username2);
         textPassword = findViewById(R.id.password2);
+        reEmail = findViewById(R.id.counsEmail);
+        rePassword = findViewById(R.id.counsNewPassword);
+        counsellorResetPassword = findViewById(R.id.counsellorResetPassword);
     }
 
     public void SignUpCard(View v){
@@ -240,6 +241,42 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void forgotCounsellorPassword(View v){
+        counsellorResetPassword.setVisibility(View.VISIBLE);
+        counsellorResetPassword.setTranslationY(counsellorResetPassword.getHeight()); // Push dwn
+        ObjectAnimator slideUp = ObjectAnimator.ofFloat(counsellorResetPassword, "translationY", 0f);
+        slideUp.setDuration(400);
+        slideUp.start();
+        counsSignIn.setVisibility(View.GONE);
+    }
+    public void backToLoginCounsellor(View v){
+        String email = reEmail.getText().toString();
+        String password = rePassword.getText().toString();
+        AccountManager.ResetPassword(email, password, "counsellor", new LoginManager.LoginCallback() {
+            @Override
+            public void onSuccess(String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CounsellorLoginActivity.this,"Password changed",Toast.LENGTH_LONG).show();
+                        counsellorResetPassword.setVisibility(View.GONE);
+                        counsSignIn.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CounsellorLoginActivity.this,error,Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
     }

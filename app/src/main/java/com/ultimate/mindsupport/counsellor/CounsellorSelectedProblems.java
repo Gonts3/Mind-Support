@@ -1,4 +1,4 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.counsellor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import com.ultimate.mindsupport.CurrentUser;
+import com.ultimate.mindsupport.ProblemManager;
+import com.ultimate.mindsupport.R;
+import com.ultimate.mindsupport.TestingActivity;
 
 import java.util.ArrayList;
 

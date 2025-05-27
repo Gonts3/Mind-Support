@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.ultimate.mindsupport.client.Client;
+import com.ultimate.mindsupport.counsellor.Counsellor;
 
 import org.json.JSONException;
 import org.json.JSONObject;

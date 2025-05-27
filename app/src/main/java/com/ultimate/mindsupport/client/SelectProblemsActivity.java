@@ -1,4 +1,4 @@
-package com.ultimate.mindsupport;
+package com.ultimate.mindsupport.client;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.ultimate.mindsupport.client.Client;
-import com.ultimate.mindsupport.client.ClientLoginActivity;
-import com.ultimate.mindsupport.counsellor.CouncillorScreen;
-import com.ultimate.mindsupport.client.ClientScreen;
-
-import java.util.ArrayList;
+import com.ultimate.mindsupport.CurrentUser;
+import com.ultimate.mindsupport.ProblemManager;
+import com.ultimate.mindsupport.R;
+import com.ultimate.mindsupport.TestingActivity;
 
 public class SelectProblemsActivity extends AppCompatActivity {
 
@@ -62,13 +60,13 @@ public class SelectProblemsActivity extends AppCompatActivity {
             int problemId = Integer.parseInt(selected.getTag().toString());
             Log.d("problemId", String.valueOf(problemId));
 
-            Client client = (Client)CurrentUser.get();
+            Client client = (Client) CurrentUser.get();
 
             client.setProblemId(String.valueOf(problemId), new ProblemManager.ProblemCallback() {
                 @Override
                 public void onSuccess(String message) {
                     //go to client screen
-                    Intent intent =  new Intent(SelectProblemsActivity.this, TestingActivity.class);
+                    Intent intent =  new Intent(SelectProblemsActivity.this, ClientScreen.class);
                     startActivity(intent);
                 }
                 @Override

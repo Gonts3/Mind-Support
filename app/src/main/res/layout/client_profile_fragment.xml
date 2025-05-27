@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/superLightGrey">
+
+    <Button
+        android:id="@+id/ClientScreen"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        app:icon="@drawable/arrow"
+        app:iconGravity="textStart"
+        app:iconPadding="18dp"
+        android:onClick="backToClientScreen"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- space btw buttons and profile pic -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:cardCornerRadius="28dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/username_icon"
+                    android:contentDescription="User profile pic" />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:text="username placeholder"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="28dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/clientCredentials"
+                    style="@style/Widget.Material3.Button.TextButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/username_icon"
+                    android:drawablePadding="8dp"
+                    android:gravity="fill"
+                    android:padding="12dp"
+                    android:text="Personal Info"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/clientLogOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Log out"
+                    android:textSize="20dp"
+                    style="@style/Widget.Material3.Button.TextButton.Icon"
+                    android:gravity="fill"
+                    android:drawableLeft="@drawable/username_icon"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:onClick="clientLogOut"/>
+
+                <Button
+                    android:id="@+id/clientDeleteAcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:textSize="20dp"
+                    style="@style/Widget.Material3.Button.TextButton.Icon"
+                    android:gravity="fill"
+                    android:drawableLeft="@drawable/username_icon"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:onClick="clientDeleteAcc"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>

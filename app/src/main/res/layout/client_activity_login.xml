@@ -24,6 +24,7 @@
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="28dp"
         android:layout_marginBottom="-20dp"
+
         >
 
         <LinearLayout
@@ -48,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/please_enter_your_username_or_email"
-                android:drawableStart="@drawable/username_icon"/>
+                android:drawableStart="@drawable/username_icon"
+                android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -62,8 +64,17 @@
                 android:drawableStart="@drawable/password"
                 android:hint="@string/please_enter_your_password"
                 android:inputType="textPassword"
+                    android:maxLines="1"
                 />
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot password?"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/blue5"
+                android:onClick="forgotClientPassword"/>
 
             <Button
                 android:id="@+id/clientLogin"
@@ -71,15 +82,107 @@
                 android:layout_height="wrap_content"
                 android:onClick="doClientLogin"
                 android:text="@string/login" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="280dp"
-                android:layout_height="29dp"
-                android:onClick="SignUpCard"
-                android:text="Not yet a user, click here to sign up." />
+                <TextView
+                    android:layout_width="172dp"
+                    android:layout_height="match_parent"
+                    android:text="Not yet a user, click here to" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onClick="SignUpCard"
+                    android:text="@string/underlined_text"
+                    android:textColor="@color/blue5"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    <!--card for resetting password-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clientResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
+        android:layout_marginBottom="-20dp"
+        android:visibility="gone"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:orientation="vertical"
+            android:padding="28dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESET PASSWORD!"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Please enter your email"
+                    android:drawableStart="@drawable/username_icon"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/password"
+                    android:hint="Please enter your new password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/verifyEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showEmailOTPCard"
+                    android:text="Verify Email" />
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                     />
+                <Button
+                    android:id="@+id/doneReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="backToLogin"
+                    android:text="Done" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
 
     <!-- card for user sign up-->
     <androidx.cardview.widget.CardView
@@ -89,7 +192,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-20dp"
         android:elevation="10dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="28dp">
 
 
@@ -112,7 +215,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/person"
-                    android:hint="Please enter a preferred username "/>
+                    android:hint="Please enter a preferred username "
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -123,7 +227,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
-                    android:hint="Please enter your email"/>
+                    android:hint="Please enter your email"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -136,7 +241,8 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/password"
                     android:inputType="textPassword"
-                    android:hint="Please enter your password" />
+                    android:hint="Please enter your password"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- This replaces the last two Buttons only -->
@@ -225,7 +331,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            android:maxLines="1"/>
 
         <Button
             android:id="@+id/sendOtp"
@@ -252,6 +359,79 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:layout_constraintVertical_bias="0.468" />
     </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- card for user reset password otp Verification-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/otpCardReset"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-20dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:cardCornerRadius="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We send an OPT to your email, please verify it."
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtOtp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/resetOtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter OPT sent"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <Button
+                android:id="@+id/sendOtpReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="doSendReset"
+                android:text="Send OTP"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/verifyOtp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtOtp"
+                app:layout_constraintVertical_bias="0.185" />
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/verifyOtpReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:onClick="verifyOtpReset"
+                android:text="Verify"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sendOtp"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:layout_constraintVertical_bias="0.468" />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

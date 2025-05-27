@@ -138,11 +138,18 @@ public class EmailVerification {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful() && response.body() != null) {
                     String json = response.body().string();
+                    String message = "";
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     if (json.contains("success")) {
-                        callback.onSuccess(json);
+                        callback.onSuccess(message);
                     } else {
-                        callback.onFailure(json); // or parse JSON for error message
+                        callback.onFailure(message); // or parse JSON for error message
                     }
                 } else {
                     callback.onFailure("Server error");
