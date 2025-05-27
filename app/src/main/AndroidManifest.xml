@@ -16,19 +16,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".counsellor.CounsellorPersonalInformation"
+            android:exported="false" />
+        <activity
+            android:name=".counsellor.PersonalInfoEdit"
+            android:exported="false" />
+        <activity
+            android:name=".client.PersonalInformation"
+            android:exported="false" />
+        <activity
             android:name=".chat.LoadUser"
             android:exported="false" />
         <activity
             android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".CounsellorSelectedProblems"
+            android:name=".counsellor.CounsellorSelectedProblems"
             android:exported="false" />
         <activity
             android:name=".TestingActivity"
             android:exported="false" />
         <activity
-            android:name=".SelectProblemsActivity"
+            android:name=".client.SelectProblemsActivity"
             android:exported="false" />
         <activity
             android:name=".counsellor.CouncillorScreen"

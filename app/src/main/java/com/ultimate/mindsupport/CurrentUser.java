@@ -1,6 +1,7 @@
 package com.ultimate.mindsupport;
 
 import com.ultimate.mindsupport.client.Client;
+import com.ultimate.mindsupport.counsellor.Counsellor;
 
 public class CurrentUser {
     private static User current;

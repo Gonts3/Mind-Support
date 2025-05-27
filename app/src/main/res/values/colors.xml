@@ -8,4 +8,6 @@
     <color name="blue4">#020bb5</color>
     <color name="blue5">#0049ff</color>
     <color name="blue6">#00d1ff</color>
+    <color name="superLightGrey">#eaeaea</color>
+    <color name="midDarkGrey">#656565</color>
 </resources>

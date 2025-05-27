@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,19 +15,14 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.widget.Button;
 
+import com.ultimate.mindsupport.AccountManager;
+import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.GetUser;
-import com.ultimate.mindsupport.SelectProblemsActivity;
 import com.ultimate.mindsupport.SessionManager;
-import com.ultimate.mindsupport.TestingActivity;
-import com.ultimate.mindsupport.chat.LoadUser;
-import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
-import com.ultimate.mindsupport.client.ClientScreen;
 import com.ultimate.mindsupport.R;
-import com.ultimate.mindsupport.counsellor.CounsellorLoginActivity;
 
 
 import java.io.IOException;
@@ -36,10 +30,10 @@ import java.security.GeneralSecurityException;
 
 public class ClientLoginActivity extends AppCompatActivity {
 
-    CardView signUp,otpCard,signIn;
-    EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp,textUser,textEmail,textPassword;
-    String token;
-
+    private CardView signUp,otpCard,signIn,clientResetPassword,clientSignInScreen,otpCardReset;
+    private EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp,textUser,textEmail,textPassword,reEmail,rePassword,resetOtp;
+    private String token,token2;
+    private Button btbVerifyEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +53,21 @@ public class ClientLoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        if (SessionManager.isLoggedIn()) {
-//            SessionManager.loadClientSession(new GetUser.GetUserCallback() {
-//                @Override
-//                public void onSuccess(String message) {
-//                    Intent intent = new Intent(ClientLoginActivity.this, LoadUser.class);
-//                    startActivity(intent);
-//                }
-//
-//                @Override
-//                public void onFailure(String error) {
-//
-//                }
-//            });
-//
-//        }
+        if (SessionManager.isLoggedIn()) {
+            SessionManager.loadClientSession(new GetUser.GetUserCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(String error) {
+
+                }
+            });
+
+        }
 
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
@@ -90,8 +84,14 @@ public class ClientLoginActivity extends AppCompatActivity {
         textEmail = findViewById(R.id.username);
         textPassword = findViewById(R.id.password);
         txtOtp = findViewById(R.id.newOtp);
+        resetOtp = findViewById(R.id.resetOtp);
+        reEmail = findViewById(R.id.userEmail);
+        rePassword = findViewById(R.id.userNewPassword);
+        clientResetPassword = findViewById(R.id.clientResetPassword);
+        clientSignInScreen = findViewById(R.id.clientSignInScreen);
+        otpCardReset = findViewById(R.id.otpCardReset);
+        btbVerifyEmail = findViewById(R.id.verifyEmail);
     }
-
 
     public void SignUpCard(View v){
         signUp.setVisibility(View.VISIBLE);
@@ -104,7 +104,6 @@ public class ClientLoginActivity extends AppCompatActivity {
     public void backToMain(View v){
         signUp.setVisibility(View.GONE);//CHANGED TO GONE
     }
-
     public void doClientLogin(View v){
         //String username = txtClientUsername.getText().toString();
         String password = textPassword.getText().toString();
@@ -122,8 +121,21 @@ public class ClientLoginActivity extends AppCompatActivity {
                         runOnUiThread(() ->
                                 Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
                         );
-                        Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
-                        startActivity(intent);
+                        Client client = CurrentUser.getClient();
+                        if(client.getProblemId().equals("null")){
+
+                            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+
+                        }else{
+                            Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
 
                     @Override
@@ -207,14 +219,14 @@ public class ClientLoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void clearCounsellorInputFields() {
+    private void clearInputFields() {
         txtClientEmail.setText("");
         txtClientUsername.setText("");
         txtClientPassword.setText("");
         txtOtp.setText("");
     }
     public void doVerify(View v){
-        String otp = txtOtp.getText().toString();
+        String otp = txtOtp.getText().toString().trim();
 
         EmailVerification.VerifyOtp(otp, token, new EmailVerification.VerificationCallback() {
             @Override
@@ -227,7 +239,7 @@ public class ClientLoginActivity extends AppCompatActivity {
                     signUp.setVisibility(View.GONE);
 
                     // Clear all input fields
-                    clearCounsellorInputFields();
+                    clearInputFields();
                 }
             });
             }
@@ -246,5 +258,101 @@ public class ClientLoginActivity extends AppCompatActivity {
         });
 
 
+    }
+    public void forgotClientPassword(View v){
+        clientResetPassword.setVisibility(View.VISIBLE);
+        clientResetPassword.setTranslationY(clientResetPassword.getHeight()); // Push dwn
+        ObjectAnimator slideUp = ObjectAnimator.ofFloat(clientResetPassword, "translationY", 0f);
+        slideUp.setDuration(400);
+        slideUp.start();
+        clientSignInScreen.setVisibility(View.GONE);
+        rePassword.setVisibility(View.GONE);
+    }
+
+    public void showEmailOTPCard(View v){
+        clientResetPassword.setVisibility(View.GONE);//hides reset card with email inputbox
+        otpCardReset.setVisibility(View.VISIBLE);
+        otpCardReset.setTranslationY(otpCardReset.getHeight()); // Push dwn
+        ObjectAnimator slideUp = ObjectAnimator.ofFloat(otpCardReset, "translationY", 0f);
+        slideUp.setDuration(400);
+        slideUp.start();
+    }
+    public void doSendReset(View v){
+        Button sendOtpReset = (Button)v;
+        sendOtpReset.setEnabled(false);
+        new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                sendOtpReset.setText("Wait " + millisUntilFinished / 1000 + "s");
+            }
+            public void onFinish() {
+                sendOtpReset.setText("Send OTP");
+                sendOtpReset.setEnabled(true); // Re-enable the button
+            }
+        }.start();
+        String email = reEmail.getText().toString();
+        EmailVerification.SendPasswordOtp(email, "client", new EmailVerification.VerificationCallback() {
+            @Override
+            public void onSuccess(String message) {
+                token2 = message;
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    public void verifyOtpReset(View v){
+        String otp = resetOtp.getText().toString().trim();
+        EmailVerification.VerifyOtp(otp, token2, new EmailVerification.VerificationCallback() {
+            @Override
+            public void onSuccess(String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ClientLoginActivity.this, message, Toast.LENGTH_LONG).show();
+                        otpCardReset.setVisibility(View.GONE);//CHANGED FROM INVISIBLE TO GONE
+                        clientResetPassword.setVisibility(View.VISIBLE);
+                        reEmail.setVisibility(View.GONE);
+                        rePassword.setVisibility(View.VISIBLE);
+                        resetOtp.setVisibility(View.GONE);
+                        btbVerifyEmail.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ClientLoginActivity.this, error, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+    public void backToLogin(View v){
+        String email = reEmail.getText().toString();
+        String password = rePassword.getText().toString();
+        AccountManager.ResetPassword(email, password, "client", new LoginManager.LoginCallback() {
+            @Override
+            public void onSuccess(String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ClientLoginActivity.this,"Password changed",Toast.LENGTH_LONG).show();
+                        clientResetPassword.setVisibility(View.GONE);
+
+                        clientSignInScreen.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 }

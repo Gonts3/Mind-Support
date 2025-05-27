@@ -1,10 +1,7 @@
 package com.ultimate.mindsupport;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,13 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ultimate.mindsupport.client.Client;
-import com.ultimate.mindsupport.client.ClientLoginActivity;
-import com.ultimate.mindsupport.counsellor.CounsellorLoginActivity;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.List;
+import com.ultimate.mindsupport.counsellor.Counsellor;
 
 public class TestingActivity extends AppCompatActivity {
     TextView txtTest;
@@ -54,27 +45,21 @@ public class TestingActivity extends AppCompatActivity {
         txtTest = findViewById(R.id.txtTests);
 
         if(CurrentUser.getClient()!=null) {
-            Client client = (Client) CurrentUser.getClient();
-            if(Integer.valueOf(client.getProblemId()) >0){
-                client.assignCounsellor(new ProblemManager.ProblemCallback() {
-                    @Override
-                    public void onSuccess(String message) {
-                        runOnUiThread(() ->{
-                            Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+            AccountManager.DeleteCounsellor("1", new AccountManager.AccountCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    runOnUiThread(() ->{
+                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+                    });
+                }
 
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(String error) {
+                @Override
+                public void onFailure(String error) {
                         runOnUiThread(() ->{
                             Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
-
                         });
-                    }
-                });
-            }
-
+                }
+            });
 
         }else{
             Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
@@ -91,26 +76,25 @@ public class TestingActivity extends AppCompatActivity {
     }
     public void DoProblems(View v) {
         txtTest = findViewById(R.id.txtTests);
-        EditText edt = findViewById(R.id.edtEmail);
-        EmailVerification.SendPasswordOtp(String.valueOf(edt.getText()),"client", new EmailVerification.VerificationCallback() {
-            @Override
-            public void onSuccess(String message) {
-                runOnUiThread(() ->{
-                    Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+        Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
 
-                });
-            }
+        if (counsellor != null) {
+            counsellor.setNames("Jack","Smallephant", new AccountManager.AccountCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    runOnUiThread(() ->{
+                        Toast.makeText(TestingActivity.this, message, Toast.LENGTH_LONG).show();
+                        txtTest.setText(counsellor.getFname() + " "+ counsellor.getLname());
+                    });
+                }
 
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(() ->{
-                    Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
-
-                });
-            }
-        });
-
-
-
+                @Override
+                public void onFailure(String error) {
+                    runOnUiThread(() ->{
+                        Toast.makeText(TestingActivity.this, error, Toast.LENGTH_LONG).show();
+                    });
+                }
+            });
+        }
     }
 }
