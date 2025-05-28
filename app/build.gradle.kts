@@ -32,6 +32,11 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
     implementation(libs.security.crypto)
     implementation(libs.appcompat)
     implementation(libs.material)
