@@ -39,11 +39,12 @@ public class Client extends User {
         this.username = username;
         //TODO Create a php script for api
     }
-
     public void setProblemId(String problemId, ProblemManager.ProblemCallback callback) {
         this.problemId = problemId;
         ProblemManager.AddClientProblem(problemId, this.getId(), callback);
-
+    }
+    public void assignCounsellor(ProblemManager.ProblemCallback callback){
+        ProblemManager.AssignCounsellor(this.getId(),this.getProblemId(),callback);
     }
 
 }
