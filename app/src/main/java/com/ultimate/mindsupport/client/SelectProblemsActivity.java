@@ -65,9 +65,24 @@ public class SelectProblemsActivity extends AppCompatActivity {
             client.setProblemId(String.valueOf(problemId), new ProblemManager.ProblemCallback() {
                 @Override
                 public void onSuccess(String message) {
-                    //go to client screen
-                    Intent intent =  new Intent(SelectProblemsActivity.this, ClientScreen.class);
-                    startActivity(intent);
+                    //go to client screen after assigning counsellor
+                    client.assignCounsellor(new ProblemManager.ProblemCallback() {
+                        @Override
+                        public void onSuccess(String message) {
+                            runOnUiThread(() ->
+                                    Toast.makeText(SelectProblemsActivity.this,message, Toast.LENGTH_LONG).show()
+                            );
+                            Intent intent =  new Intent(SelectProblemsActivity.this, ClientScreen.class);
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onFailure(String error) {
+
+                        }
+                    });
+
                 }
                 @Override
                 public void onFailure(String error) {

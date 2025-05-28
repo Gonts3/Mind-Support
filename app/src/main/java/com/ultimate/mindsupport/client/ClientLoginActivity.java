@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.GetUser;
+import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.LoginManager;
@@ -123,11 +124,11 @@ public class ClientLoginActivity extends AppCompatActivity {
                         );
                         Client client = CurrentUser.getClient();
                         if(client.getProblemId().equals("null")){
-
                             Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
+
 
                         }else{
                             Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
