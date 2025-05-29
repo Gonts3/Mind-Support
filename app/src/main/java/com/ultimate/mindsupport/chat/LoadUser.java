@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -117,17 +118,22 @@ public class LoadUser extends AppCompatActivity {
 
                         int userId = user.getInt("id");
                         String userName = user.getString("username");
-
-                        String lastMsg = user.optString("last_message", "");
                         String time = user.optString("last_message_time", "");
 
-                        String formattedTime = "No messages yet";
+                        String lastMsg = "No messages yet";
+                        String formattedTime = "";
                         if (time != null && !time.isEmpty() && !"null".equalsIgnoreCase(time)) {
                             try {
                                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
                                 SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                                outputFormat.setTimeZone(TimeZone.getDefault());  // local time
+
                                 Date date = inputFormat.parse(time);
                                 formattedTime = outputFormat.format(date);
+
+                                lastMsg = user.optString("last_message", "");
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
