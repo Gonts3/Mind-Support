@@ -2,6 +2,7 @@ package com.ultimate.mindsupport.chat;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -65,6 +66,8 @@ public class ChatActivity extends AppCompatActivity {
 
         String receiverName = getIntent().getStringExtra("receiver_name");
         TextView name  = findViewById(R.id.textUserName);
+        TextView letter = findViewById(R.id.textProfileLetter);
+        letter.setText(receiverName.substring(0, 1));
         name.setText(receiverName);
 
         adapter = new MessageAdapter(messageList, senderId);
@@ -234,4 +237,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+    public void backToChatList(View view) {
+        finish();
+    }
 }

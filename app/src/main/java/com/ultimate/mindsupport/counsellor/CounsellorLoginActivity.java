@@ -1,9 +1,12 @@
 package com.ultimate.mindsupport.counsellor;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +27,9 @@ import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.client.Client;
+import com.ultimate.mindsupport.client.ClientLoginActivity;
+import com.ultimate.mindsupport.client.ClientScreen;
 import com.ultimate.mindsupport.client.SelectProblemsActivity;
 
 import java.io.IOException;
@@ -80,9 +86,73 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         signUp.setVisibility(View.INVISIBLE);
     }
 
+    private void showSaveDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_save, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.show();
+
+        Button cancelBtn = dialogView.findViewById(R.id.btn_cancel);
+        Button logoutBtn = dialogView.findViewById(R.id.btn_logout);
+
+        logoutBtn.setOnClickListener(v -> {
+                Counsellor counsellor = CurrentUser.getCounsellor();
+                counsellor.getProblems(new ProblemManager.ProblemListCallback() {
+                    @Override
+                    public void onSuccess(List<String> problems) {
+
+                        Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
+                        startActivity(intent);
+
+
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
+                        startActivity(intent);
+
+
+                    }
+
+                });
+        });
+        cancelBtn.setOnClickListener(v -> {
+            CurrentUser.setLoggedIn(false);
+            Counsellor counsellor = CurrentUser.getCounsellor();
+            counsellor.getProblems(new ProblemManager.ProblemListCallback() {
+                @Override
+                public void onSuccess(List<String> problems) {
+
+                    Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
+                    startActivity(intent);
+
+
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
+                    startActivity(intent);
+
+
+                }
+
+            });
+
+
+        });
+
+
+    }
+
     public void doCounselorLogin(View v ){
         String password = textPassword.getText().toString();
         String email = textEmail.getText().toString().trim();
+
 
         LoginManager.LoginUser(email, password, "counsellor", new LoginManager.LoginCallback() {
             @Override
@@ -91,27 +161,13 @@ public class CounsellorLoginActivity extends AppCompatActivity {
                 SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
                     @Override
                     public void onSuccess(String message) {
-                        Counsellor counsellor = CurrentUser.getCounsellor();
-                        counsellor.getProblems(new ProblemManager.ProblemListCallback() {
-                            @Override
-                            public void onSuccess(List<String> problems) {
-                                runOnUiThread(() ->
-                                        Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
-                                );
-                                    Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
-                                    startActivity(intent);
-
-
-                            }
-
-                            @Override
-                            public void onFailure(String error) {
-                                Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
-                                startActivity(intent);
-
-
-                            }
-                        });}
+                        runOnUiThread(() ->
+                                Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                        );
+                        runOnUiThread(() ->
+                                showSaveDialog(CounsellorLoginActivity.this)
+                        );
+                        }
 
 
 

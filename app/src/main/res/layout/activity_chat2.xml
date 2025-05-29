@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -10,24 +11,43 @@
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/chatToolbar"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue1">
+        android:background="@color/blue1"
+        android:padding="0dp"
+        >
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="8dp">
+            android:padding="2dp"
+            android:paddingStart="0dp">
+            <ImageButton
+                android:id="@+id/ClientScreen"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:onClick="backToChatList"
+                />
 
-            <ImageView
-                android:id="@+id/imageProfile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/sample_profile"
-                android:layout_marginEnd="8dp"
-                android:scaleType="centerCrop"
+            <TextView
+                android:id="@+id/textProfileLetter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/circle_background" />
 
             <TextView
