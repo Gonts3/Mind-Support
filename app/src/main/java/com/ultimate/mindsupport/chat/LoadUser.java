@@ -64,6 +64,7 @@ public class LoadUser extends AppCompatActivity {
             Intent intent = new Intent(LoadUser.this, ChatActivity.class);
             intent.putExtra("receiver_id", userChat.getId());
             intent.putExtra("sender_id", id);
+            intent.putExtra("receiver_name", userChat.getName());
             startActivity(intent);
         });
 
@@ -120,14 +121,16 @@ public class LoadUser extends AppCompatActivity {
                         String lastMsg = user.optString("last_message", "");
                         String time = user.optString("last_message_time", "");
 
-                        String formattedTime = time;
-                        try {
-                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
-                            Date date = inputFormat.parse(time);
-                            formattedTime = outputFormat.format(date);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        String formattedTime = "No messages yet";
+                        if (time != null && !time.isEmpty() && !"null".equalsIgnoreCase(time)) {
+                            try {
+                                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                                Date date = inputFormat.parse(time);
+                                formattedTime = outputFormat.format(date);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         if (time.compareTo(newestTimestamp) > 0) {
