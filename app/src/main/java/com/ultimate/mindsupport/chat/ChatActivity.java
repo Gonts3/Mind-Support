@@ -63,6 +63,10 @@ public class ChatActivity extends AppCompatActivity {
         senderId = getIntent().getIntExtra("sender_id", -1);
         receiverId = getIntent().getIntExtra("receiver_id", -1);
 
+        String receiverName = getIntent().getStringExtra("receiver_name");
+        TextView name  = findViewById(R.id.textUserName);
+        name.setText(receiverName);
+
         adapter = new MessageAdapter(messageList, senderId);
         recyclerViewMessages.setAdapter(adapter);
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
@@ -71,6 +75,8 @@ public class ChatActivity extends AppCompatActivity {
         if (senderId != -1 && receiverId != -1) {
             loadMessages(senderId, receiverId);
         }
+
+
 
         sendButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString().trim();
@@ -173,7 +179,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void run() {
                 fetchNewMessages();
-                handler.postDelayed(this, 2000); // repeat every 2 seconds
+                handler.postDelayed(this, 1000); // repeat every 2 seconds
             }
         }, 2000);
     }
