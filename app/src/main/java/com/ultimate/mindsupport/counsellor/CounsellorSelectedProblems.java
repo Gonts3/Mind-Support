@@ -75,7 +75,7 @@ public class CounsellorSelectedProblems extends AppCompatActivity {
                     runOnUiThread(() ->{
                         Toast.makeText(CounsellorSelectedProblems.this, message, Toast.LENGTH_LONG).show();
                     });
-                    Intent intent =  new Intent(CounsellorSelectedProblems.this, TestingActivity.class);
+                    Intent intent =  new Intent(CounsellorSelectedProblems.this, CouncillorScreen.class);
                     startActivity(intent);
                     counsellorProblemIDs.clear();
                 }

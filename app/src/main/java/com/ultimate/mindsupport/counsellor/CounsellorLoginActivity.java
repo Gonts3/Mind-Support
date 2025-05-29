@@ -17,14 +17,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ultimate.mindsupport.AccountManager;
+import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.EmailVerification;
 import com.ultimate.mindsupport.GetUser;
 import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.client.SelectProblemsActivity;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 public class CounsellorLoginActivity extends AppCompatActivity {
     private CardView signUp,otpCard2,counsSignIn,counsellorResetPassword;
@@ -42,28 +46,7 @@ public class CounsellorLoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        try {
-            SessionManager.init(this);
-        } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
-                @Override
-                public void onSuccess(String message) {
-                    Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
-                    startActivity(intent);
-                }
 
-                @Override
-                public void onFailure(String error) {
-
-                }
-            });
-
-       }
          //Initially hide both sign-up and sign-in cards
        signUp.setVisibility(View.INVISIBLE);
 
@@ -104,15 +87,33 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         LoginManager.LoginUser(email, password, "counsellor", new LoginManager.LoginCallback() {
             @Override
             public void onSuccess(String message) {
-                runOnUiThread(() ->
-                        Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
-                );
+
                 SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
                     @Override
                     public void onSuccess(String message) {
-                        Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
-                        startActivity(intent);
-                    }
+                        Counsellor counsellor = CurrentUser.getCounsellor();
+                        counsellor.getProblems(new ProblemManager.ProblemListCallback() {
+                            @Override
+                            public void onSuccess(List<String> problems) {
+                                runOnUiThread(() ->
+                                        Toast.makeText(CounsellorLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                                );
+                                    Intent intent = new Intent(CounsellorLoginActivity.this, CouncillorScreen.class);
+                                    startActivity(intent);
+
+
+                            }
+
+                            @Override
+                            public void onFailure(String error) {
+                                Intent intent = new Intent(CounsellorLoginActivity.this, CounsellorSelectedProblems.class);
+                                startActivity(intent);
+
+
+                            }
+                        });}
+
+
 
                     @Override
                     public void onFailure(String error) {

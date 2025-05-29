@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@drawable/mind_support_logo"
+    android:gravity="center">
+
+<ProgressBar
+android:id="@+id/loadingSpinner"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_centerInParent="true"
+style="?android:attr/progressBarStyleLarge"
+    android:indeterminateTint="@android:color/white"
+    />
+    </RelativeLayout>

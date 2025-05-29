@@ -1,9 +1,12 @@
 package com.ultimate.mindsupport.client;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.GetUser;
+import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.ProblemManager;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.EmailVerification;
@@ -47,28 +51,6 @@ public class ClientLoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        try {
-            SessionManager.init(this);
-        } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (SessionManager.isLoggedIn()) {
-            SessionManager.loadClientSession(new GetUser.GetUserCallback() {
-                @Override
-                public void onSuccess(String message) {
-                    Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onFailure(String error) {
-
-                }
-            });
-
-        }
 
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
@@ -105,6 +87,56 @@ public class ClientLoginActivity extends AppCompatActivity {
     public void backToMain(View v){
         signUp.setVisibility(View.GONE);//CHANGED TO GONE
     }
+
+    private void showSaveDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_save, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.show();
+
+        Button cancelBtn = dialogView.findViewById(R.id.btn_cancel);
+        Button logoutBtn = dialogView.findViewById(R.id.btn_logout);
+
+        logoutBtn.setOnClickListener(v -> {
+            Client client = CurrentUser.getClient();
+            if(client.getProblemId().equals("null")){
+                Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+
+
+            }else{
+                Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+        cancelBtn.setOnClickListener(v -> {
+            CurrentUser.setLoggedIn(false);
+            Client client = CurrentUser.getClient();
+            if(client.getProblemId().equals("null")){
+                Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+
+
+            }else{
+                Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+
+        });
+
+
+    }
     public void doClientLogin(View v){
         //String username = txtClientUsername.getText().toString();
         String password = textPassword.getText().toString();
@@ -119,23 +151,13 @@ public class ClientLoginActivity extends AppCompatActivity {
                 SessionManager.loadClientSession(new GetUser.GetUserCallback() {
                     @Override
                     public void onSuccess(String message) {
+
                         runOnUiThread(() ->
-                                Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                                showSaveDialog(ClientLoginActivity.this)
                         );
-                        Client client = CurrentUser.getClient();
-                        if(client.getProblemId().equals("null")){
-                            Intent intent = new Intent(ClientLoginActivity.this, SelectProblemsActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
+                        runOnUiThread(()-> Toast.makeText(ClientLoginActivity.this,message, Toast.LENGTH_LONG).show()
+                                );
 
-
-                        }else{
-                            Intent intent = new Intent(ClientLoginActivity.this, ClientScreen.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
 
                     }
 

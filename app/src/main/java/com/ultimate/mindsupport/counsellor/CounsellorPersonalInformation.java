@@ -50,8 +50,8 @@ public class CounsellorPersonalInformation extends AppCompatActivity {
     public void backToCounsProfile(View v){
         String Fname = newCounsellorFName.getText().toString();
         String Lname = newClientLName.getText().toString();
-        if (Fname.isEmpty() || Lname.isEmpty() ) {
-            Toast.makeText(this, "All fields required!", Toast.LENGTH_SHORT).show();
+        if (Fname.isEmpty() & Lname.isEmpty() ) {
+            Toast.makeText(this, "One field required!", Toast.LENGTH_SHORT).show();
             return;
         }
         Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();

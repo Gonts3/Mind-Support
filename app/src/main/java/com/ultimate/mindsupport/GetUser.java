@@ -103,7 +103,7 @@ public class GetUser {
 
 
                     if (json.contains("success")) {
-                        callback.onSuccess("Retrieved user!");
+
 
                         String counsellor_id = "";
                         String counsellor_fname = "";
@@ -120,6 +120,7 @@ public class GetUser {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+                        callback.onSuccess("Retrieved user!");
 
                     }
                     else {

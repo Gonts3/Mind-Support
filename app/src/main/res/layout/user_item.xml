@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageProfile"
+    <TextView
+        android:id="@+id/textProfileLetter"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sample_profile"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:background="@drawable/circle_background" />
 
     <LinearLayout

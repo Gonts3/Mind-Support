@@ -1,8 +1,12 @@
 package com.ultimate.mindsupport.counsellor;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.LoginManager;
+import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.chat.LoadUser;
@@ -63,34 +68,76 @@ public class CouncillorScreen extends AppCompatActivity {
             return false;
         });
     }
+
+    private void showLogoutDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_logout, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.show();
+
+        Button cancelBtn = dialogView.findViewById(R.id.btn_cancel);
+        Button logoutBtn = dialogView.findViewById(R.id.btn_logout);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        logoutBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            LoginManager.Logout();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+
+            Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
+        });
+    }
+    private void showDeleteDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_delete, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.show();
+
+        Button cancelBtn = dialogView.findViewById(R.id.btn_cancel);
+        Button logoutBtn = dialogView.findViewById(R.id.btn_logout);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        logoutBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            AccountManager.DeleteCounsellor(SessionManager.getCounsellorId(), new AccountManager.AccountCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    counsellorLogOut(v);
+                    Toast.makeText(CouncillorScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(CouncillorScreen.this, error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+
+        });
+    }
     private void initViews(){
         userName = findViewById(R.id.profileName);
     }
     public void counsellorLogOut(View v){
-        LoginManager.Logout();
-        Intent intent = new Intent(this, CounsellorLoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+        showLogoutDialog(this);
     }
     public void counsellorDeleteAcc(View v){
-        AccountManager.DeleteCounsellor(SessionManager.getCounsellorId(), new AccountManager.AccountCallback() {
-            @Override
-            public void onSuccess(String message) {
-                counsellorLogOut(v);
-                Toast.makeText(CouncillorScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(CouncillorScreen.this, error, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        showDeleteDialog(this);
     }
 
 //    public void editCounsellorInfo(View v){

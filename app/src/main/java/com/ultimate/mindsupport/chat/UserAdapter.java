@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.ultimate.mindsupport.R;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private Context context;
     private List<UserChat> userChatList;
     private OnUserClickListener listener;
+
 
     public UserAdapter(Context context, List<UserChat> userChatList, OnUserClickListener listener) {
         this.context = context;
@@ -47,12 +47,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.textLastMessage.setText(userChat.getLastMessage());
         holder.textTime.setText(userChat.getTime());
 
-        // Load image using Glide
-        Glide.with(context)
-                .load(userChat.getProfileImageUrl())
-                .placeholder(R.drawable.sample_profile) // fallback image
-                .circleCrop()
-                .into(holder.imageProfile);
+        // Get first letter of name and set as profile icon
+        String name = userChat.getName();
+        if (name != null && !name.isEmpty()) {
+            String firstLetter = name.substring(0, 1).toUpperCase();
+            holder.textProfileLetter.setText(firstLetter);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -67,12 +67,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageProfile;
+        TextView textProfileLetter;
         TextView textUsername, textLastMessage, textTime;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageProfile = itemView.findViewById(R.id.imageProfile);
+            textProfileLetter = itemView.findViewById(R.id.textProfileLetter);
             textUsername = itemView.findViewById(R.id.textUsername);
             textLastMessage = itemView.findViewById(R.id.textLastMessage);
             textTime = itemView.findViewById(R.id.textTime);

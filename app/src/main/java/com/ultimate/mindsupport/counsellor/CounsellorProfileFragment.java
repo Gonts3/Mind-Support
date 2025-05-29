@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.ultimate.mindsupport.CurrentUser;
+import com.ultimate.mindsupport.GetUser;
 import com.ultimate.mindsupport.R;
+import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.client.Client;
 import com.ultimate.mindsupport.client.PersonalInformation;
 
