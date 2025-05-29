@@ -22,6 +22,7 @@ import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.chat.ChatFragment;
 import com.ultimate.mindsupport.chat.LoadUser;
 import com.ultimate.mindsupport.client.ClientLoginActivity;
 import com.ultimate.mindsupport.client.ClientProfileFragment;
@@ -46,15 +47,27 @@ public class CouncillorScreen extends AppCompatActivity {
         counsellorBottomNavigation = findViewById(R.id.button_nav2);
         counsellorBottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                getSupportFragmentManager().popBackStack();
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                return true;
-            }else if(id == R.id.nav_chat){
-                Intent chatIntent = new Intent(this, LoadUser.class);
-                startActivity(chatIntent);
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                return true;
+//            if (id == R.id.nav_home) {
+//                getSupportFragmentManager().popBackStack();
+//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                return true;
+//            }
+            if(id == R.id.nav_chat){
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container2, new ChatFragment())
+                        .setCustomAnimations(
+                                android.R.anim.slide_in_left,  // enter
+                                android.R.anim.slide_out_right,  // exit
+                                android.R.anim.slide_in_left,  // popEnter
+                                android.R.anim.slide_out_right  // popExit
+                        )
+                        .addToBackStack(null)
+                        .commit();
+
+                        return true;
+
             }else if(id == R.id.nav_profile){
                 //bottomNavigation.setVisibility(View.GONE);
                 getSupportFragmentManager()

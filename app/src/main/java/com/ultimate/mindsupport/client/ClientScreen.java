@@ -24,6 +24,7 @@ import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.chat.ChatFragment;
 import com.ultimate.mindsupport.chat.LoadUser;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 
@@ -48,15 +49,26 @@ public class ClientScreen extends AppCompatActivity {
         clientBottomNavigation = findViewById(R.id.button_nav);
         clientBottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                getSupportFragmentManager().popBackStack();
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            //            if (id == R.id.nav_home) {
+//                getSupportFragmentManager().popBackStack();
+//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                return true;
+//            }
+            if(id == R.id.nav_chat){
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new ChatFragment())
+                        .setCustomAnimations(
+                                android.R.anim.slide_in_left,  // enter
+                                android.R.anim.slide_out_right,  // exit
+                                android.R.anim.slide_in_left,  // popEnter
+                                android.R.anim.slide_out_right  // popExit
+                        )
+                        .addToBackStack(null)
+                        .commit();
+
                 return true;
-            }else if(id == R.id.nav_chat){
-                Intent chatIntent = new Intent(this, LoadUser.class);
-                startActivity(chatIntent);
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                return true;
+
             }else if(id == R.id.nav_profile){
                 //bottomNavigation.setVisibility(View.GONE);
                 getSupportFragmentManager()
@@ -90,9 +102,10 @@ public class ClientScreen extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
             finish();
 
-            Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
+
         });
     }
     private void showDeleteDialog(Context context) {
