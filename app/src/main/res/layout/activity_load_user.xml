@@ -1,19 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/primary5"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewUsers"
+    android:animateLayoutChanges="true">
+
+    <!-- Example: Top user info views -->
+    <TextView
+        android:id="@+id/userNameTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIND SUPPORT"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_8sdp" />
+
+    <!-- ✅ Rounded white background container with shadow -->
+
+    <FrameLayout
+        android:id="@+id/chatContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="12dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_content_bottom"
+        android:elevation="6dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        app:layout_constraintTop_toBottomOf="@id/imageProfile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <!-- ✅ RecyclerView inside rounded FrameLayout -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clipToOutline="true"
+            android:padding="12dp"
+            android:scrollbars="vertical" />
+
+    </FrameLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="22dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mind_support_logo"
+        app:layout_constraintBottom_toTopOf="@+id/chatContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTop"
+        app:riv_oval="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
