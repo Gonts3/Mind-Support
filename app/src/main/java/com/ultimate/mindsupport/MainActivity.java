@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ultimate.mindsupport.client.ClientLoginActivity;
+import com.ultimate.mindsupport.client.ClientScreen;
+import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 import com.ultimate.mindsupport.counsellor.CounsellorLoginActivity;
 
 import java.io.IOException;
@@ -25,47 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        try {
-            SessionManager.init(this);
-        } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-
-//        if (SessionManager.isLoggedIn()) {
-//            if (SessionManager.getUserType().equals("client")) {
-//                SessionManager.loadClientSession(new GetUser.GetUserCallback() {
-//                    @Override
-//                    public void onSuccess(String message) {
-//                        Intent intent = new Intent(MainActivity.this, TestingActivity.class);
-//                        startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String error) {
-//
-//                    }
-//                });
-//
-//            } else {
-//                SessionManager.loadCounsellorSession(new GetUser.GetUserCallback() {
-//                    @Override
-//                    public void onSuccess(String message) {
-//                        Intent intent = new Intent(MainActivity.this, TestingActivity.class);
-//                        startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String error) {
-//
-//                    }
-//
-//
-//                });
-//            }
-//        }
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

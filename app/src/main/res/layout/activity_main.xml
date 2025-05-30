@@ -1,39 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mind_support_logo"
-    tools:context=".MainActivity">
+    android:background="#FFFFFF">
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="148dp"
-        android:onClick="clientActivity"
-        android:text="Client"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.45" />
-
-    <Button
-        android:id="@+id/button2"
+    <!-- Welcome Text -->
+    <TextView
+        android:id="@+id/welcomeText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="148dp"
-        android:onClick="councillorActivity"
-        android:text="Councillor"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Welcome to Mind Support.\nThank you for choosing us!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintWidth_percent="0.45" />
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"/>
 
+    <!-- Logo Image -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="300dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/mind_support_logo"
+        android:contentDescription="Mind Support Logo"
+        app:layout_constraintTop_toBottomOf="@id/welcomeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- App Name -->
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIND SUPPORT"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Counselor Button -->
+    <Button
+        android:onClick="councillorActivity"
+        android:id="@+id/counselorButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Counselor"
+        android:textAllCaps="false"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="48dp"
+        app:cornerRadius="24dp"
+        app:layout_constraintTop_toBottomOf="@id/appName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Client Button -->
+    <Button
+        android:onClick="clientActivity"
+        android:id="@+id/clientButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Client"
+        android:textAllCaps="false"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="48dp"
+        app:cornerRadius="24dp"
+        app:layout_constraintTop_toBottomOf="@id/counselorButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,13 +38,23 @@ public class Counsellor extends User {
     }
     public void setFname(String firstname, AccountManager.AccountCallback callback) {
         AccountManager.ChangeCounsellorName(this.getId(),firstname,"", callback);
+        fname = firstname;
 
     }
     public void setLname(String lastname, AccountManager.AccountCallback callback) {
         AccountManager.ChangeCounsellorName(this.getId(),"",lastname, callback);
+        lname = lastname;
 
     }
     public void setNames(String firstname,String lastname, AccountManager.AccountCallback callback) {
+        if(lname.isEmpty()){
+            setFname(firstname,callback);
+            return;
+        }
+        if(fname.isEmpty()){
+            setLname(lastname,callback);
+            return;
+        }
         AccountManager.ChangeCounsellorName(this.getId(),firstname,lastname, callback);
         this.fname = firstname;
         this.lname = lastname;

@@ -18,6 +18,7 @@ public class CurrentUser {
     }
 
     public static void clear() {
+        SessionManager.clearSession();
         current = null;
     }
 
