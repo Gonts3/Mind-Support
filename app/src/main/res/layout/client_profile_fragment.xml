@@ -5,17 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/superLightGrey">
 
-    <Button
-        android:id="@+id/ClientScreen"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        app:icon="@drawable/arrow"
-        app:iconGravity="textStart"
-        app:iconPadding="18dp"
-        android:onClick="backToClientScreen"
-        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -98,7 +88,7 @@
                     android:textSize="20dp"
                     style="@style/Widget.Material3.Button.TextButton.Icon"
                     android:gravity="fill"
-                    android:drawableLeft="@drawable/username_icon"
+                    android:drawableLeft="@drawable/ic_logout"
                     android:drawablePadding="8dp"
                     android:padding="12dp"
                     android:onClick="clientLogOut"/>
@@ -111,7 +101,7 @@
                     android:textSize="20dp"
                     style="@style/Widget.Material3.Button.TextButton.Icon"
                     android:gravity="fill"
-                    android:drawableLeft="@drawable/username_icon"
+                    android:drawableLeft="@drawable/ic_deleteacc"
                     android:drawablePadding="8dp"
                     android:padding="12dp"
                     android:onClick="clientDeleteAcc"/>

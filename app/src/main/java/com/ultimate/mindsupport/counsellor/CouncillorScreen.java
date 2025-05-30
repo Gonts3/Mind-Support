@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ultimate.mindsupport.AccountManager;
@@ -28,10 +29,18 @@ import com.ultimate.mindsupport.client.ClientLoginActivity;
 import com.ultimate.mindsupport.client.ClientProfileFragment;
 import com.ultimate.mindsupport.client.ClientScreen;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class CouncillorScreen extends AppCompatActivity {
 
     BottomNavigationView counsellorBottomNavigation;
-    TextView userName;
+    TextView userName,dailyQuote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +53,24 @@ public class CouncillorScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        dailyQuote = findViewById(R.id.quotes2);
+        List<String> quotes = loadQuotesFromAssets();
+        if (!quotes.isEmpty()) {
+            Random random = new Random();
+            String quote = quotes.get(random.nextInt(quotes.size()));
+            dailyQuote.setText(quote);
+        }
         counsellorBottomNavigation = findViewById(R.id.button_nav2);
         counsellorBottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-//            if (id == R.id.nav_home) {
-//                getSupportFragmentManager().popBackStack();
-//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//                return true;
-//            }
+            if (id == R.id.nav_home) {
+                dailyQuote.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                return true;
+            }
             if(id == R.id.nav_chat){
-
+                dailyQuote.setVisibility(View.GONE);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container2, new ChatFragment())
@@ -70,6 +87,7 @@ public class CouncillorScreen extends AppCompatActivity {
 
             }else if(id == R.id.nav_profile){
                 //bottomNavigation.setVisibility(View.GONE);
+                dailyQuote.setVisibility(View.GONE);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container2, new CounsellorProfileFragment())
@@ -159,4 +177,21 @@ public class CouncillorScreen extends AppCompatActivity {
 //        startActivity(intent);
 //        finish();
 //    }
+private List<String> loadQuotesFromAssets() {
+    List<String> quotes = new ArrayList<>();
+    try {
+        InputStream is = getResources().openRawResource(R.raw.quotes);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (!line.trim().isEmpty()) {
+                quotes.add(line.trim());
+            }
+        }
+        reader.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return quotes;
+}
 }

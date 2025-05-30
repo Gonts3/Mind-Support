@@ -9,8 +9,8 @@
     >
 
     <ScrollView
-        android:layout_width="350dp"
-        android:layout_height="450dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,179 +32,175 @@
                 android:textSize="20sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="12dp"/>
-            <RadioGroup
-                android:id="@+id/idGroup"
+
+            <!-- Repeatable Row with RadioButton and ImageButton aligned -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp">
+
+                <RadioGroup
+                    android:id="@+id/idGroup"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <RadioButton
                         android:id="@+id/problem1"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Mental Health"
-                        android:tag="1"/>
+                        android:tag="1" />
+
+                    <RadioButton
+                        android:id="@+id/problem2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Personal Issues"
+                        android:tag="2" />
+
+                    <RadioButton
+                        android:id="@+id/problem3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Relationships"
+                        android:tag="3" />
+
+                    <RadioButton
+                        android:id="@+id/problem4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Academic/Career"
+                        android:tag="4" />
+
+                    <RadioButton
+                        android:id="@+id/problem5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Substance Abuse &amp; Addiction"
+                        android:tag="5" />
+
+                    <RadioButton
+                        android:id="@+id/problem6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Gender &amp; Sexuality"
+                        android:tag="6" />
+
+                    <RadioButton
+                        android:id="@+id/problem7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Life &amp; Personal Development"
+                        android:tag="7" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="340dp"
+                    android:layout_gravity="top"
+                    android:orientation="vertical">
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Personal Issues"
-                        android:tag="2"/>
+                        android:contentDescription="Info Mental Health"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Relationships"
-                        android:tag="3"/>
+                        android:contentDescription="Info Personal Issues"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Academic/Career"
-                        android:tag="4"/>
+                        android:contentDescription="Info Relationships"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Substance Abuse &amp; Addiction"
-                        android:tag="5"/>
+                        android:contentDescription="Info Academic/Career"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Gender &amp; Sexuality"
-                        android:tag="6"/>
+                        android:contentDescription="Info Addiction"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <RadioButton
-                        android:id="@+id/problem7"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Life &amp; Personal Development"
-                        android:tag="7"/>
+                        android:contentDescription="Info Gender"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/details7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/info"
                         android:background="@android:color/transparent"
-                        android:textSize="12sp"/>
+                        android:contentDescription="Info Personal Development"
+                        android:src="@drawable/info" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
-            </RadioGroup>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/problemsSelected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Done!"
                 android:layout_gravity="center"
-                android:onClick="getProblemID"/>
+                android:onClick="getProblemID" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,16 +23,20 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/buttom_nav_menu"/>
 
-    <Button
-        android:id="@+id/chooseProblems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+
+    <TextView
+        android:id="@+id/quotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="304dp"
-        android:layout_marginEnd="148dp"
-        android:text="Choose Problems"
-        android:onClick="chooseProblems"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="Quote of the day"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
 
 
 </RelativeLayout>

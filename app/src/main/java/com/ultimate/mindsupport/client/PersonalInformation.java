@@ -2,6 +2,7 @@ package com.ultimate.mindsupport.client;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class PersonalInformation extends AppCompatActivity {
 
     private EditText userName;
     private CardView changeNamesCard;
-    private Button names;
+    private Button names,problems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +46,16 @@ public class PersonalInformation extends AppCompatActivity {
         changeNamesCard = findViewById(R.id.changeNamesCard);
         userName = findViewById(R.id.newClientUserName);
         names = findViewById(R.id.clientUserName);
+        problems = findViewById(R.id.clientProblems);
     }
     public void changeNames(View v){
         changeNamesCard.setVisibility(View.VISIBLE);
         names.setVisibility(View.GONE);
+        problems.setVisibility(View.GONE);
+    }
+    public void chooseProblems(View v){
+        Intent intent = new Intent(this, SelectProblemsActivity.class);
+        startActivity(intent);
     }
     public void backToProfile(View v){
         String username = userName.getText().toString();
@@ -86,4 +93,5 @@ public class PersonalInformation extends AppCompatActivity {
         });
 
     }
+
 }

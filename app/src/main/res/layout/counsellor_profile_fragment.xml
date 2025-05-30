@@ -86,7 +86,7 @@
                         android:textSize="20dp"
                         style="@style/Widget.Material3.Button.TextButton.Icon"
                         android:gravity="fill"
-                        android:drawableLeft="@drawable/username_icon"
+                        android:drawableLeft="@drawable/ic_logout"
                         android:drawablePadding="8dp"
                         android:padding="12dp"
                         android:onClick="counsellorLogOut"/>
@@ -99,7 +99,7 @@
                         android:textSize="20dp"
                         style="@style/Widget.Material3.Button.TextButton.Icon"
                         android:gravity="fill"
-                        android:drawableLeft="@drawable/username_icon"
+                        android:drawableLeft="@drawable/ic_deleteacc"
                         android:drawablePadding="8dp"
                         android:padding="12dp"
                         android:onClick="counsellorDeleteAcc"/>

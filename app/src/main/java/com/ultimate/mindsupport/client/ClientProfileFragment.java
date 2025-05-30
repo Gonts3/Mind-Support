@@ -28,6 +28,7 @@ public class ClientProfileFragment extends Fragment {
 
         profileName = view.findViewById(R.id.profileName);
         Client client = (Client) CurrentUser.getClient();
+        assert client != null;
         profileName.setText(client.getUsername());
 
         Button editButton = view.findViewById(R.id.clientCredentials);
