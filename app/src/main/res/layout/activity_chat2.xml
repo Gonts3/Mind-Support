@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/primary5"
+    android:background="@color/primary4"
     android:id="@+id/main">
 
     <!-- Toolbar Replacement -->
