@@ -1,5 +1,7 @@
 package com.ultimate.mindsupport.chat;
 
+import static androidx.core.content.ContextCompat.startForegroundService;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,7 +64,6 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         client = new OkHttpClient();
         recyclerView = view.findViewById(R.id.recyclerViewUsers);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -84,6 +85,14 @@ public class ChatFragment extends Fragment {
         });
 
         recyclerView.setAdapter(adapter);
+
+        Intent serviceIntent = new Intent(requireContext(), ChatNotificationService.class);
+        serviceIntent.putExtra("user_id", Integer.parseInt(CurrentUser.isClient()
+                ? CurrentUser.getClient().getId()
+                : CurrentUser.getCounsellor().getId()));
+        serviceIntent.putExtra("user_type", CurrentUser.isClient() ? "client" : "counsellor");
+        requireContext().startForegroundService(serviceIntent);
+
     }
 
     @Override
@@ -142,12 +151,16 @@ public class ChatFragment extends Fragment {
                             newestTimestamp = time;
                         }
 
+                        boolean unread = user.optBoolean("unread", false);
                         String imageUrl = "https://api.dicebear.com/7.x/initials/svg?seed=" + userName;
-                        newUserChatList.add(new UserChat(userId, userName, lastMsg, formattedTime, imageUrl));
+
+                        UserChat userChat = new UserChat(userId, userName, lastMsg, formattedTime, imageUrl);
+                        userChat.setUnread(unread);
+
+                        newUserChatList.add(userChat);
                     }
 
-                    if (!newestTimestamp.equals(lastUpdateTimestamp)) {
-                        lastUpdateTimestamp = newestTimestamp;
+                    if (!newUserChatList.equals(userChatList)) {
                         userChatList.clear();
                         userChatList.addAll(newUserChatList);
                         requireActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
@@ -159,4 +172,5 @@ public class ChatFragment extends Fragment {
             }
         });
     }
+
 }
