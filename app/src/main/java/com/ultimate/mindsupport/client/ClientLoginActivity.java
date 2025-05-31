@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.GetUser;
@@ -36,7 +37,10 @@ import java.security.GeneralSecurityException;
 public class ClientLoginActivity extends AppCompatActivity {
 
     private CardView signUp,otpCard,signIn,clientResetPassword,clientSignInScreen,otpCardReset;
-    private EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp,textUser,textEmail,textPassword,reEmail,rePassword,resetOtp;
+    private EditText txtClientEmail,txtClientUsername,txtClientPassword,txtOtp,textUser,textEmail,
+            textPassword,reEmail,rePassword,resetOtp;
+
+    private TextInputLayout userEmailInputFrame,userPasswordInputFrame;
     private String token,token2;
     private Button btbVerifyEmail;
 
@@ -54,7 +58,7 @@ public class ClientLoginActivity extends AppCompatActivity {
 
         // Initially hide both sign-up and sign-in cards
         signUp.setVisibility(View.INVISIBLE);
-
+        userPasswordInputFrame.setVisibility(View.GONE);
     }
     private void initViews(){
         signUp = findViewById(R.id.clientSignUpScreen);
@@ -74,6 +78,9 @@ public class ClientLoginActivity extends AppCompatActivity {
         clientSignInScreen = findViewById(R.id.clientSignInScreen);
         otpCardReset = findViewById(R.id.otpCardReset);
         btbVerifyEmail = findViewById(R.id.verifyEmail);
+        userEmailInputFrame = findViewById(R.id.userEmailInputFrame);
+        userPasswordInputFrame = findViewById(R.id.userPasswordInputFrame);
+
     }
 
     public void SignUpCard(View v){
@@ -338,8 +345,10 @@ public class ClientLoginActivity extends AppCompatActivity {
                         clientResetPassword.setVisibility(View.VISIBLE);
                         reEmail.setVisibility(View.GONE);
                         rePassword.setVisibility(View.VISIBLE);
+                        userPasswordInputFrame.setVisibility(View.VISIBLE);
                         resetOtp.setVisibility(View.GONE);
                         btbVerifyEmail.setVisibility(View.GONE);
+                        userEmailInputFrame.setVisibility(View.GONE);
                     }
                 });
             }

@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.EmailVerification;
@@ -37,9 +38,12 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class CounsellorLoginActivity extends AppCompatActivity {
-    private CardView signUp,otpCard2,counsSignIn,counsellorResetPassword;
-    private EditText txtNewCounsFname,txtNewCounsLname,txtNewCounsRegNum,txtNewCounsEmail,txtNewClientPassword,counsOTP,textEmail,textPassword,reEmail,rePassword;
-    private String CounsToken;
+    private CardView signUp,otpCard2,counsSignIn,counsellorResetPassword,otpCardResetCouns;
+    private EditText txtNewCounsFname,txtNewCounsLname,txtNewCounsRegNum,txtNewCounsEmail,txtNewClientPassword,
+            counsOTP,textEmail,textPassword,reEmail,rePassword,resetOtpCouns;
+    private TextInputLayout counsEmailInputFrame,counsPasswordInputFrame;
+    private String CounsToken,CounsToken2;
+    private Button btbVerifyEmail2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,7 @@ public class CounsellorLoginActivity extends AppCompatActivity {
 
          //Initially hide both sign-up and sign-in cards
        signUp.setVisibility(View.INVISIBLE);
-
+        counsPasswordInputFrame.setVisibility(View.GONE);
     }
     private void initViews(){
         signUp = findViewById(R.id.councillorSignUpScreen);
@@ -72,6 +76,12 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         reEmail = findViewById(R.id.counsEmail);
         rePassword = findViewById(R.id.counsNewPassword);
         counsellorResetPassword = findViewById(R.id.counsellorResetPassword);
+        resetOtpCouns = findViewById(R.id.resetOtpCouns);
+        counsEmailInputFrame = findViewById(R.id.counsEmailInputFrame);
+        counsPasswordInputFrame = findViewById(R.id.counsPasswordInputFrame);
+        btbVerifyEmail2 = findViewById(R.id.verifyEmail2);
+        otpCardResetCouns = findViewById(R.id.otpCardResetCouns);
+        findViewById(R.id.sendOtpReset2);
     }
 
     public void SignUpCard(View v){
@@ -308,7 +318,74 @@ public class CounsellorLoginActivity extends AppCompatActivity {
         slideUp.start();
         counsSignIn.setVisibility(View.GONE);
     }
-    public void backToLoginCounsellor(View v){
+    public void showEmailOTPCard2(View v){
+        counsellorResetPassword.setVisibility(View.GONE);//hides reset card with email inputbox
+        otpCardResetCouns.setVisibility(View.VISIBLE);
+        otpCardResetCouns.setTranslationY(otpCardResetCouns.getHeight()); // Push dwn
+        ObjectAnimator slideUp = ObjectAnimator.ofFloat(otpCardResetCouns, "translationY", 0f);
+        slideUp.setDuration(400);
+        slideUp.start();
+    }
+    public void doSendReset2(View v) {
+        Button sendOtpReset = (Button) v;
+        sendOtpReset.setEnabled(false);
+        new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                sendOtpReset.setText("Wait " + millisUntilFinished / 1000 + "s");
+            }
+
+            public void onFinish() {
+                sendOtpReset.setText("Send OTP");
+                sendOtpReset.setEnabled(true); // Re-enable the button
+            }
+        }.start();
+        String email = reEmail.getText().toString();
+        EmailVerification.SendPasswordOtp(email, "client", new EmailVerification.VerificationCallback() {
+            @Override
+            public void onSuccess(String message) {
+                CounsToken2 = message;
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+        }
+        public void verifyOtpReset2(View v){
+            String otp = resetOtpCouns.getText().toString().trim();
+            EmailVerification.VerifyOtp(otp, CounsToken2, new EmailVerification.VerificationCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(CounsellorLoginActivity.this, message, Toast.LENGTH_LONG).show();
+                            otpCardResetCouns.setVisibility(View.GONE);//CHANGED FROM INVISIBLE TO GONE
+                            counsellorResetPassword.setVisibility(View.VISIBLE);
+                            reEmail.setVisibility(View.GONE);
+                            rePassword.setVisibility(View.VISIBLE);
+                            counsPasswordInputFrame.setVisibility(View.VISIBLE);
+                            resetOtpCouns.setVisibility(View.GONE);
+                            btbVerifyEmail2.setVisibility(View.GONE);
+                            counsEmailInputFrame.setVisibility(View.GONE);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(CounsellorLoginActivity.this, error, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+        }
+
+    public void backToLogin2(View v){
         String email = reEmail.getText().toString();
         String password = rePassword.getText().toString();
         AccountManager.ResetPassword(email, password, "counsellor", new LoginManager.LoginCallback() {
