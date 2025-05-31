@@ -6,8 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".counsellor.CouncillorScreen"
-    android:background="@color/white">
+    android:background="@color/primary5">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/quoteCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@color/superLightGrey"
+        android:elevation="4dp"
+        app:cardCornerRadius="16dp">
+
+        <TextView
+            android:id="@+id/quotes2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Quote of the day"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container2"
@@ -24,20 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/buttom_nav_menu"
-        android:background="@color/white2"/>
+        android:background="@color/superLightGrey"/>
 
-    <TextView
-        android:id="@+id/quotes2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center"
-        android:text="Quote of the day"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+
 
 </RelativeLayout>

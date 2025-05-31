@@ -146,6 +146,9 @@ public class ClientScreen extends AppCompatActivity {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(ClientScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ClientScreen.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
 
                 @Override

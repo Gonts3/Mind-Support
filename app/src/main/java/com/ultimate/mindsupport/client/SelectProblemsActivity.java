@@ -46,34 +46,30 @@ public class SelectProblemsActivity extends AppCompatActivity {
             return insets;
         });
         if (CurrentUser.getClient()!=null){
-            int id = Integer.parseInt(CurrentUser.getClient().getProblemId());
-            if(id==1){
-                problem1.setTextColor(Color.GRAY);
-                problem1.setEnabled(false);
-            }
-            else if(id==2){
-                problem2.setTextColor(Color.GRAY);
-                problem2.setEnabled(false);
-            }
-            else if(id==3){
-                problem3.setTextColor(Color.GRAY);
-                problem3.setEnabled(false);
-            }
-            else if(id==4){
-                problem4.setTextColor(Color.GRAY);
-                problem4.setEnabled(false);
-            }
-            else if(id==5){
-                problem5.setTextColor(Color.GRAY);
-                problem6.setEnabled(false);
-            }
-            else if(id==6){
-                problem6.setTextColor(Color.GRAY);
-                problem6.setEnabled(false);
-            }
-            else{
-                problem7.setTextColor(Color.GRAY);
-                problem7.setEnabled(false);
+            if(!CurrentUser.getClient().getProblemId().equals("null")) {
+                int id = Integer.parseInt(CurrentUser.getClient().getProblemId());
+                if (id == 1) {
+                    problem1.setTextColor(Color.GRAY);
+                    problem1.setEnabled(false);
+                } else if (id == 2) {
+                    problem2.setTextColor(Color.GRAY);
+                    problem2.setEnabled(false);
+                } else if (id == 3) {
+                    problem3.setTextColor(Color.GRAY);
+                    problem3.setEnabled(false);
+                } else if (id == 4) {
+                    problem4.setTextColor(Color.GRAY);
+                    problem4.setEnabled(false);
+                } else if (id == 5) {
+                    problem5.setTextColor(Color.GRAY);
+                    problem6.setEnabled(false);
+                } else if (id == 6) {
+                    problem6.setTextColor(Color.GRAY);
+                    problem6.setEnabled(false);
+                } else {
+                    problem7.setTextColor(Color.GRAY);
+                    problem7.setEnabled(false);
+                }
             }
 
         }

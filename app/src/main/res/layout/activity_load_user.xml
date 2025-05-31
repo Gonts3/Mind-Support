@@ -19,8 +19,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_8sdp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ✅ Rounded white background container with shadow -->
 
