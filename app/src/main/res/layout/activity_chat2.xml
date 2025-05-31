@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_back"
                 android:onClick="backToChatList"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                />
 
             <TextView
                 android:id="@+id/textProfileLetter"
@@ -63,7 +64,7 @@
         android:id="@+id/recyclerViewMessages"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/background_content_top"
         app:layout_constraintTop_toBottomOf="@id/chatToolbar"
         app:layout_constraintBottom_toTopOf="@id/messageInputLayout"

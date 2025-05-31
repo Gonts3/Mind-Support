@@ -55,7 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please enter your username"
-                    android:drawableStart="@drawable/username_icon"/>
+                    android:drawableStart="@drawable/username_icon"
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -69,6 +71,7 @@
                     android:drawableStart="@drawable/password"
                     android:hint="@string/please_enter_your_password"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -139,7 +142,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please enter your email"
-                    android:drawableStart="@drawable/username_icon"/>
+                    android:drawableStart="@drawable/username_icon"
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -153,6 +158,7 @@
                     android:drawableStart="@drawable/password"
                     android:hint="Please enter your new password"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -210,7 +216,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please enter last name"
-                    android:drawableStart="@drawable/names"/>
+                    android:drawableStart="@drawable/names"
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -221,7 +229,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint=" Please enter registration number"
-                    android:drawableStart="@drawable/license"/>
+                    android:drawableStart="@drawable/license"
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -232,7 +242,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please enter your email"
-                    android:drawableStart="@drawable/email"/>
+                    android:drawableStart="@drawable/email"
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -243,7 +255,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please enter your password"
-                    android:drawableStart="@drawable/password"/>
+                    android:drawableStart="@drawable/password"
+                    android:maxLines="1"
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -331,7 +345,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/sendOtp"

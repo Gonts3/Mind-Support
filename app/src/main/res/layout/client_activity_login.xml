@@ -50,7 +50,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/please_enter_your_username_or_email"
                 android:drawableStart="@drawable/username_icon"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="text"
+                />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,8 +66,7 @@
                 android:drawableStart="@drawable/password"
                 android:hint="@string/please_enter_your_password"
                 android:inputType="textPassword"
-                    android:maxLines="1"
-                />
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -136,7 +137,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Please enter your email"
                     android:drawableStart="@drawable/username_icon"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -216,7 +218,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/person"
                     android:hint="Please enter a preferred username "
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="text"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -228,7 +232,8 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
                     android:hint="Please enter your email"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -398,6 +403,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter OPT sent"
+                    android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout

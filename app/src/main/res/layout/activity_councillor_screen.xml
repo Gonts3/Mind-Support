@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".counsellor.CouncillorScreen">
+    tools:context=".counsellor.CouncillorScreen"
+    android:background="@color/white">
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -22,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/buttom_nav_menu"/>
+        app:menu="@menu/buttom_nav_menu"
+        android:background="@color/white2"/>
 
     <TextView
         android:id="@+id/quotes2"

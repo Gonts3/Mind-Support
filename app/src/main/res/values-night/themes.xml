@@ -3,7 +3,7 @@
     <style name="Base.Theme.MindSupport" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/blue6</item>
+        <item name="colorPrimary">@color/blue3</item>
 
     </style>
     <!-- In the same file or in styles.xml -->
