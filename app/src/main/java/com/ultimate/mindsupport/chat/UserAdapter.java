@@ -1,14 +1,13 @@
 package com.ultimate.mindsupport.chat;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ultimate.mindsupport.R;
@@ -24,7 +23,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private Context context;
     private List<UserChat> userChatList;
     private OnUserClickListener listener;
-
 
     public UserAdapter(Context context, List<UserChat> userChatList, OnUserClickListener listener) {
         this.context = context;
@@ -47,13 +45,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.textLastMessage.setText(userChat.getLastMessage());
         holder.textTime.setText(userChat.getTime());
 
-        // Get first letter of name and set as profile icon
+        // Set first letter of username
         String name = userChat.getName();
         if (name != null && !name.isEmpty()) {
-            String firstLetter = name.substring(0, 1).toUpperCase();
-            holder.textProfileLetter.setText(firstLetter);
+            holder.textProfileLetter.setText(name.substring(0, 1).toUpperCase());
         }
 
+        // 🔵 Set color based on unread status
+        if (userChat.isUnread()) {
+            holder.textUsername.setTextColor(ContextCompat.getColor(context, R.color.light_blue));
+        } else {
+            holder.textUsername.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+        }
+
+        // Handle click
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onUserClick(userChat);
@@ -67,8 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView textProfileLetter;
-        TextView textUsername, textLastMessage, textTime;
+        TextView textProfileLetter, textUsername, textLastMessage, textTime;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,4 +83,3 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 }
-

@@ -77,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (senderId != -1 && receiverId != -1) {
             loadMessages(senderId, receiverId);
+            markMessagesAsRead(senderId, receiverId);
         }
 
 
@@ -182,7 +183,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void run() {
                 fetchNewMessages();
-                handler.postDelayed(this, 1000); // repeat every 2 seconds
+                handler.postDelayed(this, 2000); // repeat every 2 seconds
             }
         }, 2000);
     }
@@ -232,6 +233,33 @@ public class ChatActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void markMessagesAsRead(int userId, int chatPartnerId) {
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://lamp.ms.wits.ac.za/home/s2841286/chat/Mark_read.php"
+                + "?user_id=" + userId
+                + "&chat_partner_id=" + chatPartnerId;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                // Optional: you can parse response here if needed
+                String resp = response.body().string();
+                System.out.println("Mark_read response: " + resp);
             }
         });
     }
