@@ -144,8 +144,8 @@ public class CouncillorScreen extends AppCompatActivity {
             AccountManager.DeleteCounsellor(SessionManager.getCounsellorId(), new AccountManager.AccountCallback() {
                 @Override
                 public void onSuccess(String message) {
-                    counsellorLogOut(v);
-                    Toast.makeText(CouncillorScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() ->
+                            Toast.makeText(CouncillorScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show());
                     Intent intent = new Intent(CouncillorScreen.this, MainActivity.class);
                     startActivity(intent);
                     finish();

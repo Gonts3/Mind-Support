@@ -191,8 +191,8 @@ public class AccountManager {
                     }
 
                     if (json.contains("success")) {
-                        callback.onSuccess(message);
                         CurrentUser.clear();
+                        callback.onSuccess(message);
                     } else {
                         callback.onFailure(message); // or parse JSON for error message
                     }
@@ -231,8 +231,8 @@ public class AccountManager {
                     }
 
                     if (json.contains("success")) {
-                        callback.onSuccess(message);
                         CurrentUser.clear();
+                        callback.onSuccess(message);
                     } else {
                         callback.onFailure(message); // or parse JSON for error message
                     }

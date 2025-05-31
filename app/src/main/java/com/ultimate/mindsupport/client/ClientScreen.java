@@ -141,11 +141,12 @@ public class ClientScreen extends AppCompatActivity {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         logoutBtn.setOnClickListener(v -> {
-            dialog.dismiss();
-            AccountManager.DeleteClient(SessionManager.getCounsellorId(), new AccountManager.AccountCallback() {
+            AccountManager.DeleteClient(SessionManager.getClientId(), new AccountManager.AccountCallback() {
                 @Override
                 public void onSuccess(String message) {
-                    Toast.makeText(ClientScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() ->
+                    Toast.makeText(ClientScreen.this, "Account successfully deleted", Toast.LENGTH_SHORT).show());
+                    dialog.dismiss();
                     Intent intent = new Intent(ClientScreen.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -163,6 +164,7 @@ public class ClientScreen extends AppCompatActivity {
             });
 
         });
+
     }
     private void initViews(){
         userName = findViewById(R.id.profileName);
