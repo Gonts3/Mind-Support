@@ -4,6 +4,8 @@ package com.ultimate.mindsupport.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,10 +39,9 @@ public class LoadUser extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserAdapter adapter;
     private List<UserChat> userChatList = new ArrayList<>();
-
-
+    LinearLayout emptyStateLayout ;
     private final android.os.Handler handler = new android.os.Handler();
-    private final int POLL_INTERVAL = 1000; // 1 seconds
+    private final int POLL_INTERVAL = 1000; // 1 second
     private String lastUpdateTimestamp = "";
 
     @Override
@@ -112,7 +113,12 @@ public class LoadUser extends AppCompatActivity {
                     // Determine the latest timestamp in this data set
                     String newestTimestamp = "";
                     List<UserChat> newUserChatList = new ArrayList<>();
-
+                    emptyStateLayout = findViewById(R.id.emptyStateLayout);
+                    if(users.length()==0){;
+                        emptyStateLayout.setVisibility(View.VISIBLE);
+                    }else{
+                        emptyStateLayout.setVisibility(View.GONE);
+                    }
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject user = users.getJSONObject(i);
 
@@ -147,6 +153,7 @@ public class LoadUser extends AppCompatActivity {
                         newUserChatList.add(new UserChat(userId, userName, lastMsg, formattedTime, imageUrl));
                     }
 
+
                     // Only update UI if data changed (new timestamp is more recent)
                     if (!newestTimestamp.equals(lastUpdateTimestamp)) {
                         lastUpdateTimestamp = newestTimestamp;
@@ -161,6 +168,8 @@ public class LoadUser extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
 

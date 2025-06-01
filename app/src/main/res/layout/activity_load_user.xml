@@ -46,13 +46,42 @@
             android:clipToOutline="true"
             android:padding="12dp"
             android:scrollbars="vertical" />
+        <!-- Empty state layout -->
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/emptyStateImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/warning"
+                android:contentDescription="No users"
+                android:layout_marginBottom="16dp"
+                app:tint="@color/superLightGrey" />
+
+            <TextView
+                android:id="@+id/emptyStateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No clients currently assigned to you. \n Keep checking this window for a new client."
+                android:gravity="center"
+                android:textColor="@color/superLightGrey"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
 
     </FrameLayout>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfile"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="22dp"
         android:scaleType="centerCrop"
@@ -61,6 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userNameTop"
-        app:riv_oval="true" />
+        app:riv_oval="true"
+        tools:ignore="MissingClass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

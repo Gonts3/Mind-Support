@@ -318,7 +318,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="We send an OPT to your email, please verify it."
+            android:text="We send an OTP to your email, please verify it."
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/txtOtp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -389,7 +389,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="We send an OPT to your email, please verify it."
+                android:text="We send an OTP to your email, please verify it."
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/txtOtp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -404,7 +404,7 @@
                     android:id="@+id/resetOtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter OPT sent"
+                    android:hint="Enter OTP sent"
                     android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>

@@ -21,13 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.MainActivity;
+import com.ultimate.mindsupport.ManageAssignmentActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.chat.ChatFragment;
-import com.ultimate.mindsupport.chat.LoadUser;
-import com.ultimate.mindsupport.client.ClientLoginActivity;
-import com.ultimate.mindsupport.client.ClientProfileFragment;
-import com.ultimate.mindsupport.client.ClientScreen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -125,6 +122,11 @@ public class CouncillorScreen extends AppCompatActivity {
             Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
         });
     }
+
+
+        // Create adapter with user list and action listener
+
+
     private void showDeleteDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_delete, null);
@@ -173,6 +175,11 @@ public class CouncillorScreen extends AppCompatActivity {
     public void counsellorDeleteAcc(View v){
         showDeleteDialog(this);
     }
+    public void editAssignments(View v){
+        Intent intent = new Intent(this, ManageAssignmentActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
 //    public void editCounsellorInfo(View v){
 //        Intent intent = new Intent(this, PersonalInformation.class);
@@ -180,6 +187,11 @@ public class CouncillorScreen extends AppCompatActivity {
 //        startActivity(intent);
 //        finish();
 //    }
+
+
+
+
+
 private List<String> loadQuotesFromAssets() {
     List<String> quotes = new ArrayList<>();
     try {

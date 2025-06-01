@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Welcome to the councillor page _______"
+                android:text="Welcome to the counsellor page _______"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout

@@ -79,6 +79,19 @@
                         android:onClick="editCounsellorInfo"/>
 
                     <Button
+                        android:id="@+id/counsellorAssignments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Active Assignments"
+                        android:textSize="20dp"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:gravity="fill"
+                        android:drawableLeft="@drawable/username_icon"
+                        android:drawablePadding="8dp"
+                        android:padding="12dp"
+                        android:onClick="editAssignments"/>
+
+                    <Button
                         android:id="@+id/counsellorLogOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -67,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
         String receiverName = getIntent().getStringExtra("receiver_name");
         TextView name  = findViewById(R.id.textUserName);
         TextView letter = findViewById(R.id.textProfileLetter);
-        letter.setText(receiverName.substring(0, 1));
+        letter.setText(receiverName.substring(0, 1).toUpperCase());
         name.setText(receiverName);
 
         adapter = new MessageAdapter(messageList, senderId);

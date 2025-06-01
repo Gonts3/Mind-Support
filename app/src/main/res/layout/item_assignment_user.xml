@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginEnd="@dimen/_15sdp"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:layout_marginLeft="10dp"
+    android:background="@drawable/rounded_dialog_bg"
+    android:elevation="@dimen/_14ssp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textColor="@color/blue3"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="6dp"
+        android:paddingEnd="25dp">
+
+        <Button
+            android:id="@+id/btnEndSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue1"/>
+
+        <Button
+            android:id="@+id/btnReassign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reassign"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue3"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+</LinearLayout>

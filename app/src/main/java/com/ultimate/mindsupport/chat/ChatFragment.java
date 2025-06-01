@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ChatFragment extends Fragment {
-
+    LinearLayout emptyStateLayout ;
     private int id;
     private String type;
     private OkHttpClient client;
@@ -46,6 +48,7 @@ public class ChatFragment extends Fragment {
     private final Handler handler = new Handler();
     private final int POLL_INTERVAL = 1000;
     private String lastUpdateTimestamp = "";
+    private TextView emptyStateText;
 
     private final Runnable refreshUsersRunnable = new Runnable() {
         @Override
@@ -66,6 +69,7 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         client = new OkHttpClient();
         recyclerView = view.findViewById(R.id.recyclerViewUsers);
+        emptyStateLayout = view.findViewById(R.id.emptyStateLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         if (CurrentUser.isClient()) {
@@ -108,6 +112,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void loadUsers() {
+
         String url = "https://lamp.ms.wits.ac.za/home/s2841286/chat/get_users.php?user_id=" + id + "&type=" + type;
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
@@ -124,6 +129,26 @@ public class ChatFragment extends Fragment {
 
                     String newestTimestamp = "";
                     List<UserChat> newUserChatList = new ArrayList<>();
+
+                    requireActivity().runOnUiThread(() -> {
+                        if (users.length() == 0) {
+                            if(CurrentUser.isClient()){
+                                emptyStateText = emptyStateLayout.findViewById(R.id.emptyStateText);
+                                emptyStateText.setText("You don't have a counsellor assigned to you, \n " +
+                                        "This means your counsellor decided that your problem has been resolved." +
+                                        " You can either delete your account or select a new problem.");
+
+
+                            }else{
+                                emptyStateText = emptyStateLayout.findViewById(R.id.emptyStateText);
+                                emptyStateText.setText("No clients currently assigned to you. \n Keep checking this window for a new client.");
+
+                            }
+                            emptyStateLayout.setVisibility(View.VISIBLE);
+                        } else {
+                                emptyStateLayout.setVisibility(View.GONE);
+                        }
+                    });
 
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject user = users.getJSONObject(i);

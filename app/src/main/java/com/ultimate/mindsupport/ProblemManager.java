@@ -3,6 +3,8 @@ package com.ultimate.mindsupport;
 import android.graphics.Point;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +28,8 @@ public class ProblemManager {
     private static final String COUNSELLOR_PROBLEM_URL = "https://lamp.ms.wits.ac.za/home/s2841286/counsellor_problem.php";
     private static final String CLIENT_PROBLEM_URL = "https://lamp.ms.wits.ac.za/home/s2841286/client_problem.php";
     private static final String GET_PROBLEM_URL = "https://lamp.ms.wits.ac.za/home/s2841286/get_counsellor_problems.php";
+    private static final String REASSIGNMENT_URL = "https://lamp.ms.wits.ac.za/home/s2841286/reassignment.php";
+    private static final String DELETE_URL = "https://lamp.ms.wits.ac.za/home/s2841286/delete_assignment.php";
     private static final OkHttpClient client = HTTPClient.getClient();
 
     public interface ProblemCallback {
@@ -206,7 +210,7 @@ public class ProblemManager {
                         throw new RuntimeException(e);
                     }
                     if (json.contains("success")) {
-                        callback.onSuccess("Counsellor assigned successfully!");
+                        callback.onSuccess(message);
                     } else {
                         callback.onFailure(message); // or parse JSON for error message
                     }
@@ -216,6 +220,86 @@ public class ProblemManager {
             }
         });
     }
+    public static void ReAssignCounsellor(String client_id,String counsellor_id, ProblemManager.ProblemCallback callback) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("client_id", client_id)
+                .add("counsellor_id",counsellor_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(REASSIGNMENT_URL)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure("Network error: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    String message = "";
+                    String json = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (json.contains("success")) {
+                        callback.onSuccess(message);
+                    } else {
+                        callback.onFailure(message); // or parse JSON for error message
+                    }
+                } else {
+                    callback.onFailure("Server error");
+                }
+            }
+        });
+    }
+    public static void DeleteAssignment(String client_id,String counsellor_id, ProblemManager.ProblemCallback callback) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("client_id", client_id)
+                .add("counsellor_id",counsellor_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(DELETE_URL)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure("Network error: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    String message = "";
+                    String json = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        message = jsonObject.get("message").toString();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (json.contains("success")) {
+                        callback.onSuccess(message);
+                    } else {
+                        callback.onFailure(message); // or parse JSON for error message
+                    }
+                } else {
+                    callback.onFailure("Server error");
+                }
+            }
+        });
+    }
+
+
 
 
 }
