@@ -54,7 +54,7 @@
                     android:id="@+id/username2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Please enter your username"
+                    android:hint="Please enter your email"
                     android:drawableStart="@drawable/username_icon"
                     android:maxLines="1"
                     android:inputType="text"/>

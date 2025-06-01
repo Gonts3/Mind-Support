@@ -183,6 +183,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void run() {
                 fetchNewMessages();
+                markMessagesAsRead(senderId, receiverId);
                 handler.postDelayed(this, 2000); // repeat every 2 seconds
             }
         }, 2000);
