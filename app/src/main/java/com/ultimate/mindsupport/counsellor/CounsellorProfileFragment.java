@@ -31,6 +31,7 @@ public class CounsellorProfileFragment extends Fragment {
 
         profileName = view.findViewById(R.id.profileName);
         Counsellor counsellor = (Counsellor) CurrentUser.getCounsellor();
+        assert counsellor != null;
         profileName.setText(counsellor.getFname() + " " + counsellor.getLname());
 
         Button editButton = view.findViewById(R.id.counsellorCredentials);

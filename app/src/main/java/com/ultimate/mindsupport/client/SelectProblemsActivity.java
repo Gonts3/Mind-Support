@@ -232,4 +232,7 @@ public class SelectProblemsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select a problem", Toast.LENGTH_SHORT).show();
         }
     }
+    public void backToProfileClient(View v){
+        finish();
+    }
 }

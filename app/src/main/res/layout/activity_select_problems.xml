@@ -23,6 +23,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/arrow"
+                android:backgroundTint="@color/white"
+                android:onClick="backToProfileClient"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

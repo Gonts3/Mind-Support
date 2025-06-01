@@ -93,5 +93,8 @@ public class PersonalInformation extends AppCompatActivity {
         });
 
     }
+    public void backToProfileClient(View v){
+        finish();
+    }
 
 }

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +40,8 @@ public class CouncillorScreen extends AppCompatActivity {
 
     BottomNavigationView counsellorBottomNavigation;
     TextView userName,dailyQuote;
+    private boolean doubleBackToExitPressedOnce = false;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,26 @@ public class CouncillorScreen extends AppCompatActivity {
             }
             return false;
         });
+    }
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+            counsellorBottomNavigation.setSelectedItemId(R.id.nav_home);
+            dailyQuote.setVisibility(View.VISIBLE);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed(); // exit app
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            handler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+        }
     }
 
     private void showLogoutDialog(Context context) {

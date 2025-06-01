@@ -349,6 +349,7 @@ public class ClientLoginActivity extends AppCompatActivity {
                         resetOtp.setVisibility(View.GONE);
                         btbVerifyEmail.setVisibility(View.GONE);
                         userEmailInputFrame.setVisibility(View.GONE);
+                        clearInputFields();
                     }
                 });
             }

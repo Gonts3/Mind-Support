@@ -43,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onSuccess(String message) {
                         Intent intent = new Intent(SplashActivity.this, ClientScreen.class);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override
@@ -58,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onSuccess(String message) {
                         Intent intent = new Intent(SplashActivity.this, CouncillorScreen.class);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override

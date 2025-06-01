@@ -18,13 +18,14 @@ import com.ultimate.mindsupport.AccountManager;
 import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.client.Client;
+import com.ultimate.mindsupport.client.ClientScreen;
 import com.ultimate.mindsupport.client.PersonalInformation;
 
 public class CounsellorPersonalInformation extends AppCompatActivity {
 
     private EditText newCounsellorFName,newClientLName;
     private CardView changeCounsNamesCard;
-    private Button names;
+    private Button names,problems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +43,12 @@ public class CounsellorPersonalInformation extends AppCompatActivity {
         newCounsellorFName = findViewById(R.id.newCounsellorFName);
         newClientLName = findViewById(R.id.newClientLName);
         names = findViewById(R.id.counsNames);
+        problems = findViewById(R.id.counsellorProblems);
     }
     public void changeCounsNames(View v){
         changeCounsNamesCard.setVisibility(View.VISIBLE);
         names.setVisibility(View.GONE);
+        problems.setVisibility(View.GONE);
     }
 
     public void backToCounsProfile(View v){
@@ -89,7 +92,10 @@ public class CounsellorPersonalInformation extends AppCompatActivity {
     public void chooseProblemsCouns(View v){
         Intent intent = new Intent(this, CounsellorSelectedProblems.class);
         startActivity(intent);
+    }
 
+    public void backToProfileC(View v){
+        finish();
     }
 
 }

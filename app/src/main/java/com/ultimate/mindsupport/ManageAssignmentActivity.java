@@ -1,5 +1,6 @@
 package com.ultimate.mindsupport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import com.ultimate.mindsupport.chat.AssignmentAdapter;
 import com.ultimate.mindsupport.chat.LoadUser;
 import com.ultimate.mindsupport.chat.UserChat;
 import com.ultimate.mindsupport.client.ClientLoginActivity;
+import com.ultimate.mindsupport.counsellor.CouncillorScreen;
+import com.ultimate.mindsupport.counsellor.CounsellorPersonalInformation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -193,5 +196,8 @@ public class ManageAssignmentActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void backToProfileC2(View v){
+        finish();
     }
 }

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +43,9 @@ public class ClientScreen extends AppCompatActivity {
 
     BottomNavigationView clientBottomNavigation;
     TextView userName,dailyQuote;
+    private boolean doubleBackToExitPressedOnce = false;
+    private Handler handler = new Handler(Looper.getMainLooper());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,9 @@ public class ClientScreen extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 dailyQuote.setVisibility(View.VISIBLE);
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                }
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 return true;
             }
@@ -99,6 +106,26 @@ public class ClientScreen extends AppCompatActivity {
             }
             return false;
         });
+    }
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+            clientBottomNavigation.setSelectedItemId(R.id.nav_home);
+            dailyQuote.setVisibility(View.VISIBLE);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed(); // exit app
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            handler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+        }
     }
     private void showLogoutDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedAlertDialog);

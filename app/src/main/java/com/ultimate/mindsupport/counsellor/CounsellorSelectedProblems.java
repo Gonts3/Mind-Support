@@ -142,4 +142,7 @@ public class CounsellorSelectedProblems extends AppCompatActivity {
 
 
         }
+    public void backToProfileCounsellor(View v){
+        finish();
+    }
     }
