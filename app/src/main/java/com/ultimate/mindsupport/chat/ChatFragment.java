@@ -90,12 +90,6 @@ public class ChatFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        Intent serviceIntent = new Intent(requireContext(), ChatNotificationService.class);
-        serviceIntent.putExtra("user_id", Integer.parseInt(CurrentUser.isClient()
-                ? CurrentUser.getClient().getId()
-                : CurrentUser.getCounsellor().getId()));
-        serviceIntent.putExtra("user_type", CurrentUser.isClient() ? "client" : "counsellor");
-        requireContext().startForegroundService(serviceIntent);
 
     }
 

@@ -183,7 +183,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void run() {
                 fetchNewMessages();
-                markMessagesAsRead(senderId, receiverId);
                 handler.postDelayed(this, 2000); // repeat every 2 seconds
             }
         }, 2000);
@@ -213,6 +212,8 @@ public class ChatActivity extends AppCompatActivity {
                     JSONObject json = new JSONObject(responseBody);
                     JSONArray messages = json.getJSONArray("messages");
 
+                    boolean newMessages = false;
+
                     if (messages.length() > 0) {
                         for (int i = 0; i < messages.length(); i++) {
                             JSONObject msg = messages.getJSONObject(i);
@@ -223,12 +224,18 @@ public class ChatActivity extends AppCompatActivity {
 
                             messageList.add(new Message(from, content, timestamp));
                             lastMessageId = Math.max(lastMessageId, msgId);
+                            newMessages = true;
                         }
 
                         runOnUiThread(() -> {
                             adapter.notifyDataSetChanged();
                             recyclerViewMessages.scrollToPosition(messageList.size() - 1);
                         });
+                    }
+
+                    // ✅ Mark as read if new messages were received
+                    if (newMessages) {
+                        markMessagesAsRead(senderId, receiverId);
                     }
 
                 } catch (Exception e) {

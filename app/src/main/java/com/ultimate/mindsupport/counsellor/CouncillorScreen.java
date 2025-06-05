@@ -1,5 +1,7 @@
 package com.ultimate.mindsupport.counsellor;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,15 +20,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ultimate.mindsupport.AccountManager;
+import com.ultimate.mindsupport.CurrentUser;
 import com.ultimate.mindsupport.LoginManager;
 import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.ManageAssignmentActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
+import com.ultimate.mindsupport.chat.ChatActivity;
 import com.ultimate.mindsupport.chat.ChatFragment;
+import com.ultimate.mindsupport.chat.ChatNotificationService;
+import com.ultimate.mindsupport.chat.UserAdapter;
+import com.ultimate.mindsupport.chat.UserChat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -99,6 +108,13 @@ public class CouncillorScreen extends AppCompatActivity {
             }
             return false;
         });
+        Intent serviceIntent = new Intent(this, ChatNotificationService.class);
+        serviceIntent.putExtra("user_id", Integer.parseInt(CurrentUser.isClient()
+                ? CurrentUser.getClient().getId()
+                : CurrentUser.getCounsellor().getId()));
+        serviceIntent.putExtra("user_type", CurrentUser.isClient() ? "client" : "counsellor");
+        this.startForegroundService(serviceIntent);
+
     }
     @Override
     public void onBackPressed() {

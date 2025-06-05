@@ -28,6 +28,7 @@ import com.ultimate.mindsupport.MainActivity;
 import com.ultimate.mindsupport.R;
 import com.ultimate.mindsupport.SessionManager;
 import com.ultimate.mindsupport.chat.ChatFragment;
+import com.ultimate.mindsupport.chat.ChatNotificationService;
 import com.ultimate.mindsupport.chat.LoadUser;
 import com.ultimate.mindsupport.counsellor.CouncillorScreen;
 
@@ -71,9 +72,7 @@ public class ClientScreen extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 dailyQuote.setVisibility(View.VISIBLE);
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                }
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 return true;
             }
@@ -106,6 +105,13 @@ public class ClientScreen extends AppCompatActivity {
             }
             return false;
         });
+
+        Intent serviceIntent = new Intent(this, ChatNotificationService.class);
+        serviceIntent.putExtra("user_id", Integer.parseInt(CurrentUser.isClient()
+                ? CurrentUser.getClient().getId()
+                : CurrentUser.getCounsellor().getId()));
+        serviceIntent.putExtra("user_type", CurrentUser.isClient() ? "client" : "counsellor");
+        this.startForegroundService(serviceIntent);
     }
     @Override
     public void onBackPressed() {
