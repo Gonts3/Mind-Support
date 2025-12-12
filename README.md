@@ -1,7 +1,10 @@
 Mind-Support
+
 🧠 Project Overview
+
 Mind-Support is a mental health support application built as a group project. It provides accessible tools that help match patients with a counselor specializing in the specific mental health issue that the patient has. The application matches a patient to the counselor with the lowest number of patients. For security all users verify their emails with an OTP and have to sign in when using their account from a separate device.
 This README explains how to install, run, and contribute to the project.
+
 🚀 Features
  * User-facing interface for mental health support
  * Sign in from any device
@@ -11,6 +14,7 @@ This README explains how to install, run, and contribute to the project.
  * Modular Java structure
  * Gradle build system
  * Expandable architecture for future features
+
 📦 Tech Stack
 | Component | Technology |
 |---|---|
@@ -19,6 +23,7 @@ This README explains how to install, run, and contribute to the project.
 | UI | (Add framework here if you use one) |
 | Backend | Java Services |
 | Extra Tools | (Add DB, APIs, libraries if applicable) |
+
 📥 Installation
  * Clone the repository
 <!-- end list -->
@@ -41,6 +46,7 @@ After running the project:
  * Launch the interface or emulator depending on setup
  * Navigate through features
  * Test support tools and workflows
+
 👥 Contributors
  * Tondani Randzida
  * Thapelo Tlowana
